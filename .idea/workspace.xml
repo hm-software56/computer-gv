@@ -1,26 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9cbdc97a-9867-4fe9-a157-cf24f3d88356" name="Default Changelist" comment="" />
+    <list default="true" id="9cbdc97a-9867-4fe9-a157-cf24f3d88356" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme.text" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/photos/2313297070.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/photos/2548341811.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/photos/3680231974.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/photos/4148667219.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/photos/4975799321.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/photos/6223369525.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/photos/6769917671.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/photos/7701193334.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/photos/7984829526.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/photos/9681859526.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/flask.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/flask.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/photos/3777021396.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/photos/6849886842.png" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1Ze4HjEMdQ9QbyeUVUEN1AMIwDN" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
-    <configuration name="flask" type="PythonConfigurationType" factoryName="Python">
+    <configuration name="flask" type="PythonConfigurationType" factoryName="Python" singleton="false">
       <module name="flask" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -29,7 +54,7 @@
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
@@ -72,43 +97,70 @@
       <workItem from="1588287534370" duration="33972000" />
       <workItem from="1588330127883" duration="1940000" />
       <workItem from="1588375121338" duration="3098000" />
+      <workItem from="1588387736318" duration="117000" />
+      <workItem from="1588387870892" duration="2314000" />
+      <workItem from="1588461574006" duration="94000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="436" y="168" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1588461659374">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="436" y="168" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.728@0.0.1366.728" timestamp="1588461659374" />
+    <state x="402" y="0" key="#flask" timestamp="1588388328219">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="402" y="0" key="#flask/0.0.1366.728@0.0.1366.728" timestamp="1588388328219" />
+    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1588389586262">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1588389586262" />
+    <state x="417" y="127" key="EnvironmentVariablesDialog" timestamp="1588388306700">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="417" y="127" key="EnvironmentVariablesDialog/0.0.1366.728@0.0.1366.728" timestamp="1588388306700" />
     <state x="462" y="107" key="FileChooserDialogImpl" timestamp="1588234717391">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="462" y="107" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1588234717391" />
-    <state width="1323" height="148" key="GridCell.Tab.0.bottom" timestamp="1588336313514">
+    <state width="1323" height="163" key="GridCell.Tab.0.bottom" timestamp="1588391075245">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="148" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1588336313514" />
-    <state width="1323" height="148" key="GridCell.Tab.0.center" timestamp="1588336313514">
+    <state width="1323" height="163" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1588391075245" />
+    <state width="1323" height="163" key="GridCell.Tab.0.center" timestamp="1588391075245">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="148" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1588336313514" />
-    <state width="1323" height="148" key="GridCell.Tab.0.left" timestamp="1588336313514">
+    <state width="1323" height="163" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1588391075245" />
+    <state width="1323" height="163" key="GridCell.Tab.0.left" timestamp="1588391075245">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="148" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1588336313514" />
-    <state width="1323" height="148" key="GridCell.Tab.0.right" timestamp="1588336313514">
+    <state width="1323" height="163" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1588391075245" />
+    <state width="1323" height="163" key="GridCell.Tab.0.right" timestamp="1588391075245">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="148" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1588336313514" />
-    <state x="184" y="7" key="SettingsEditor" timestamp="1585187557260">
+    <state width="1323" height="163" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1588391075245" />
+    <state x="184" y="7" key="SettingsEditor" timestamp="1588388347483">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1585187557260" />
+    <state x="184" y="7" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1588388347483" />
     <state x="379" y="189" key="com.intellij.ide.util.TipDialog" timestamp="1588287539537">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="379" y="189" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1588287539537" />
+    <state x="492" y="282" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1588461672451">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="492" y="282" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1588461672451" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/flask$flask.coverage" NAME="flask Coverage Results" MODIFIED="1588381308275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/computer_gv$flask.coverage" NAME="flask Coverage Results" MODIFIED="1588388351357" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
