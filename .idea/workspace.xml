@@ -2,22 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9cbdc97a-9867-4fe9-a157-cf24f3d88356" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/readme.text" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/photos/2313297070.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/photos/2548341811.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/photos/3680231974.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/photos/4148667219.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/photos/4975799321.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/photos/6223369525.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/photos/6769917671.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/photos/7701193334.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/photos/7984829526.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/photos/9681859526.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/flask.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/flask.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/photos/3777021396.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/photos/6849886842.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.text" beforeDir="false" afterPath="$PROJECT_DIR$/readme.text" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +84,7 @@
       <workItem from="1588375121338" duration="3098000" />
       <workItem from="1588387736318" duration="117000" />
       <workItem from="1588387870892" duration="2314000" />
-      <workItem from="1588461574006" duration="94000" />
+      <workItem from="1588461574006" duration="313000" />
     </task>
     <servers />
   </component>
