@@ -3,47 +3,20 @@
 
 ຕິດຕັ້ງ Python version 3 ຂື້ນໄປ
 ------------
-ດາວໂຫຼດ Python
+ດາວໂຫຼດ Python: https://www.python.org/downloads/
+
 ຕິດຕັ້ງ Library Python
-ຕິດຕັ້ງ Flask
-ຕິດຕັ້ງ OpenCV
-ຕິດຕັ້ງ Bootstrap 4
-ຕິດຕັ້ງ Flask WTF
-ຕິດຕັ້ງ Flask WTForms
-ຕິດຕັ້ງ Matplotlib
-ຕິດຕັ້ງ Numpy
-Run Project
-ດາວໂຫຼດ Source Code
-ໃຊ້ commandline(CMD) ເຂົ້າຫາ path ທີເອົາ Source code ເກັບໄວ້ ແລ້ວ run ຄໍາສັ່ງ python app.py
-ອ່ານເອກະສານເພີ່ມ >>>
-
-INSTALLATION
-------------
-
-### Install
-1. Download XAMPP OR APSERV  https://www.apachefriends.org/download.html
-2. After downloaded and install XAPP
-3. Download Zip file and unzip than copy project to www or html folder
-4. Run  access the application through the following URL:
-
-~~~
-http://localhost/pos/web/index.php?r=site/install
-~~~
-
-
-CONFIGURATION
 -------------
+1. ຕິດຕັ້ງ Flask: https://pypi.org/project/Flask/
+2. ຕິດຕັ້ງ OpenCV: https://pypi.org/project/opencv-python/
+3. ຕິດຕັ້ງ Bootstrap 4: https://pypi.org/project/Flask-Bootstrap4/
+4. ຕິດຕັ້ງ Flask WTF: https://pypi.org/project/Flask-WTF/
+5. ຕິດຕັ້ງ Flask WTForms: https://pypi.org/project/WTForms/
+6. ຕິດຕັ້ງ Matplotlib: https://pypi.org/project/matplotlib/
+7. ຕິດຕັ້ງ Numpy: https://pypi.org/project/numpy/
 
-### Database
+Run Project
+=====================
+1. ໃຊ້ commandline(CMD) ເຂົ້າຫາ path ທີເອົາ Source code ເກັບໄວ້ ແລ້ວ run ຄໍາສັ່ງ python app.py
+2. ອ່ານເອກະສານເພີ່ມ: https://flask.palletsprojects.com/en/1.1.x/
 
-Edit the file `config/db.php` with real data, for example:
-
-```php
-return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=mk_db',
-    'username' => 'root',
-    'password' => '1234',
-    'charset' => 'utf8',
-];
-```
