@@ -1,0 +1,218 @@
+{% extends "bootstrap/base.html" %}
+{% block content %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif, "phetsarath OT";
+        }
+
+    </style>
+    <div class="container">
+        {% include 'navbar.html' %}
+        <div class="pt-2">
+            <form method="POST" action="/threshold" enctype="multipart/form-data" id="form_id">
+                {{ form.csrf_token }}
+                <div class="row">
+                    <div class="col-6 ">
+                        <div class="border">
+                            <div class="bg-danger p-2 text-white font-weight-bold text-center">
+                                ສະແດງຜົນ Threshold or AdaptiveThreshold
+                            </div>
+                            {% if session['file_name_thd'] %}
+                                <div class="row">
+                                    <div class="col">
+                                        <img src="static\photos\{{ session['file_name_thd'] }}"
+                                             class="rounded mx-auto d-block img-thumbnail img-fluid">
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="row pt-2">
+                                    <div class="col">
+                                        <img src="static\default\no-image.jpg"
+                                             class="rounded mx-auto d-block img-thumbnail img-fluid">
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="border">
+                            <div class="bg-info p-2 text-white font-weight-bold text-center">Form</div>
+                            <div class="p-2">
+                                <div class="input-group">
+
+                                    <div class="custom-file">
+                                        {{ form.photo(class_="custom-file-input", id="inputGroupFile03", onChange="javascript:document.forms['form_id'].submit()") }}
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </div>
+                                {% if form.errors %}
+                                    <span class='errors text-danger'>
+                                            {% for error in form.photo.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </span>
+                                {% endif %}
+                                <div class="mt-3">
+                                    <div class="bg-dark p-2 text-center text-white">Threshold</div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label class="label font-weight-bold">Threshold Type</label>
+                                            <select class="form-control" id="exampleFormControlSelect1"
+                                                    onchange="if (this.value) window.location.href='/threshold?thd_type='+this.value">
+                                                <option></option>
+                                                <option value="THRESH_BINARY"
+                                                        {% if session['thd_type']=="THRESH_BINARY" %}
+                                                        selected
+                                                        {% endif %}
+                                                >BINARY
+                                                </option>
+                                                <option value="THRESH_BINARY_INV"
+                                                        {% if session['thd_type']=="THRESH_BINARY_INV" %}
+                                                        selected
+                                                        {% endif %}
+                                                >BINARY INV
+                                                </option>
+                                                <option value="THRESH_TRUNC"
+                                                        {% if session['thd_type']=="THRESH_TRUNC" %}
+                                                        selected
+                                                        {% endif %}
+                                                >TRUNC
+                                                </option>
+                                                <option value="THRESH_TOZERO"
+                                                        {% if session['thd_type']=="THRESH_TOZERO" %}
+                                                        selected
+                                                        {% endif %}
+                                                >TOZERO
+                                                </option>
+                                                <option value="THRESH_TOZERO_INV"
+                                                        {% if session['thd_type']=="THRESH_TOZERO_INV" %}
+                                                        selected
+                                                        {% endif %}
+                                                >TOZERO INV
+                                                </option>
+
+                                            </select>
+                                        </div>
+                                        <div class="col-3">
+                                            <label class="label font-weight-bold">Thresh Value</label>
+                                            <input type="number" name="max" min="0" class="form-control"
+                                                    {% if session['thd_value'] %}
+                                                   value="{{ session['thd_value'] }}"
+                                                    {% endif %}
+                                                   onchange="if (this.value) window.location.href='/threshold?thd_value='+this.value"
+                                            >
+                                        </div>
+                                        <div class="col-3">
+                                            <label class="label font-weight-bold">Max Value</label>
+                                            <input type="number" name="max" min="0" class="form-control"
+                                                    {% if session['max'] %}
+                                                   value="{{ session['max'] }}"
+                                                    {% endif %}
+                                                   onchange="if (this.value) window.location.href='/threshold?max='+this.value"
+                                            >
+                                        </div>
+
+                                    </div>
+                                </div>
+                                {% if session['thd_type'] %}
+                                    <div class="mt-3">
+                                        <div class="bg-success p-2 text-center text-white">Adaptive Threshold</div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label class="label font-weight-bold">Adaptive Type</label>
+                                                <select class="form-control" id="exampleFormControlSelect1"
+                                                        onchange="if (this.value) window.location.href='/threshold?adt='+this.value">
+                                                    <option></option>
+                                                    <option value="ADAPTIVE_THRESH_MEAN_C"
+                                                            {% if session['adt_type']=="ADAPTIVE_THRESH_MEAN_C" %}
+                                                            selected
+                                                            {% endif %}
+                                                    >ADAPTIVE_THRESH_MEAN_C
+                                                    </option>
+                                                    <option value="ADAPTIVE_THRESH_GAUSSIAN_C"
+                                                            {% if session['adt_type']=="ADAPTIVE_THRESH_GAUSSIAN_C" %}
+                                                            selected
+                                                            {% endif %}
+                                                    >ADAPTIVE_THRESH_GAUSSIAN_C
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-3">
+                                                <label class="label font-weight-bold">BlockSize</label>
+                                                <input type="number" name="b_size" class="form-control"
+                                                        {% if session['bs'] %}
+                                                       value="{{ session['bs'] }}"
+                                                        {% endif %}
+                                                       onchange="if (this.value) window.location.href='/threshold?bs='+this.value"
+                                                >
+                                            </div>
+                                            <div class="col-3">
+                                                <label class="label font-weight-bold">Param</label>
+                                                <input type="number" name="pr" class="form-control"
+                                                        {% if session['pr'] %}
+                                                       value="{{ session['pr'] }}"
+                                                        {% endif %}
+                                                       onchange="if (this.value) window.location.href='/threshold?pr='+this.value"
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <div class="row pt-2">
+                                    <div class="col-6">
+                                        <a href="/clean" class="bg-danger btn text-white btn-sm"><i class="far fa-trash-alt"></i> ລຶບອອກ</a>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <a  class="bg-success btn text-white btn-sm"><i class="fas fa-sync-alt"></i> ປະມວນຜົນ</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="border">
+                            <div class="bg-info p-2 text-white font-weight-bold text-center">ສະແດງຜົນ GrayScale</div>
+                            {% if session['file_name_gray'] %}
+                                <div class="row">
+                                    <div class="col">
+                                        <img src="static\photos\{{ session['file_name_gray'] }}"
+                                             class="rounded mx-auto d-block img-thumbnail img-fluid">
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="row pt-2">
+                                    <div class="col">
+                                        <img src="static\default\no-image.jpg"
+                                             class="rounded mx-auto d-block img-thumbnail img-fluid">
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="border">
+                            <div class="bg-info p-2 text-white font-weight-bold text-center">ສະແດງຜົນ Original</div>
+                            {% if session['file_name'] %}
+                                <div class="row">
+                                    <div class="col">
+                                        <img src="static\photos\{{ session['file_name'] }}"
+                                             class="rounded mx-auto d-block img-thumbnail img-fluid">
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="row pt-2">
+                                    <div class="col">
+                                        <img src="static\default\no-image.jpg"
+                                             class="rounded mx-auto d-block img-thumbnail img-fluid">
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
