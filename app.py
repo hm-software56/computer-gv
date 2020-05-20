@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, Response, redirect, url_for, 
 from models.grayimg import GrayImg
 from models.histogram import Histogram
 from models.threshold import Threshold
+from models.equalization import Equalization
 from werkzeug.utils import secure_filename
 # from camera import Camera
 # import models.imggray as ig
@@ -17,7 +18,8 @@ app.secret_key = "daxiong"
 @app.route('/clean')
 def clean():
     Threshold().removesessionAll()
-    return redirect(url_for('threshold'))
+    return redirect(request.referrer)
+    #return redirect(url_for('threshold'))
 
 
 @app.route('/')
@@ -113,6 +115,16 @@ def threshold():
     return render_template('threshold.html', form=form)
 
 
+@app.route('/equalization', methods=('GET', 'POST'))
+def equalization():
+    form = Equalization()
+    form.actionSummit(form, app)
+    if request.args.get('rg') or request.args.get('kz'):
+        return redirect(request.referrer)
+    else:
+        return render_template('equalization.html', form=form)
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=2020)
-    #app.run(debug=True, threaded=True, host='192.168.100.247', port=2020)
+    # app.run(debug=True, threaded=True, host='192.168.100.247', port=2020)

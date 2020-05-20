@@ -1,0 +1,270 @@
+{% extends "bootstrap/base.html" %}
+{% block content %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif, "phetsarath OT";
+        }
+    </style>
+    <div class="container">
+        {% include 'navbar.html' %}
+        <div class="pt-2">
+            <form method="POST" action="/equalization" enctype="multipart/form-data" id="form_id">
+                {{ form.csrf_token }}
+                <div class="row">
+                    <div class="col-8">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-6 pb-2">
+
+                                        <div class="border border-danger rounded-top">
+                                            <div class="bg-danger p-2 text-white font-weight-bold text-center">
+                                                ສະແດງຜົນ Original
+                                            </div>
+                                            {% if session['org_name'] %}
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <img src="static\photos\{{ session['org_name'] }}"
+                                                             class="img-fluid" data-toggle="modal"
+                                                             data-target=".bd-example-modal-lg">
+                                                        <div class="modal fade bd-example-modal-lg" tabindex="-1"
+                                                             role="dialog"
+                                                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <img src="static\photos\{{ session['org_name'] }}"
+                                                                         class="img-fluid">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <div class="row pt-2">
+                                                    <div class="col">
+                                                        <img src="static\default\no-image.jpg"
+                                                             class="img-fluid">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="border border-secondary rounded-top">
+                                            <div class="{% if session['rg_value']==1 %} bg-success {% else %}bg-secondary {% endif %} p-2 text-white font-weight-bold text-center">
+                                                ສະແດງຜົນ {{ session['label_name'] }}
+                                            </div>
+                                            {% if session['gray_htg_gf_mf_name'] %}
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <img src="static\photos\{{ session['gray_htg_gf_mf_name'] }}"
+                                                             class="img-fluid" data-toggle="modal"
+                                                             data-target=".bd-example-modal-lg1">
+                                                        <div class="modal fade bd-example-modal-lg1" tabindex="-1"
+                                                             role="dialog"
+                                                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <img src="static\photos\{{ session['gray_htg_gf_mf_name'] }}"
+                                                                         class="img-fluid">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <div class="row pt-2">
+                                                    <div class="col-md">
+                                                        <img src="static\default\no-image.jpg"
+                                                             class="img-fluid">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 ">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="border border-danger rounded-top">
+                                            <div class="bg-danger p-2 text-white font-weight-bold text-center">
+                                                ສະແດງເສັ້ນ Histogram
+                                            </div>
+                                            {% if session['htg_org'] %}
+                                                <div class="row">
+                                                    <div class="col">
+
+                                                        <img src="static\photos\{{ session['htg_org'] }}"
+                                                             class="img-fluid" data-toggle="modal"
+                                                             data-target=".bd-example-modal-lg2">
+                                                        <div class="modal fade bd-example-modal-lg2" tabindex="-1"
+                                                             role="dialog"
+                                                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <img src="static\photos\{{ session['htg_org'] }}"
+                                                                         class="img-fluid">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <div class="row pt-2">
+                                                    <div class="col">
+                                                        <img src="static\default\no-image.jpg"
+                                                             class="img-fluid">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-6 mt-1">
+                                        <div class="border border-secondary rounded-top">
+                                            <div class="{% if session['rg_value']==1 %} bg-success {% else %}bg-secondary {% endif %}  p-2 text-white font-weight-bold text-center">
+                                                ສະແດງເສັ້ນ {{ session['label_name'] }} Histogram
+                                            </div>
+                                            {% if session['htg_gray_htg_gf_mf'] %}
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <img src="static\photos\{{ session['htg_gray_htg_gf_mf'] }}"
+                                                             class="img-fluid" data-toggle="modal"
+                                                             data-target=".bd-example-modal-lg3">
+                                                        <div class="modal fade bd-example-modal-lg3" tabindex="-1"
+                                                             role="dialog"
+                                                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <img src="static\photos\{{ session['htg_gray_htg_gf_mf'] }}"
+                                                                         class="img-fluid">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <div class="row pt-2">
+                                                    <div class="col-md">
+                                                        <img src="static\default\no-image.jpg"
+                                                             class="img-fluid">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="border">
+                            <div class="bg-info p-2 text-white font-weight-bold text-center">Form</div>
+                            <div class="p-2">
+                                <div class="input-group">
+
+                                    <div class="custom-file">
+                                        {{ form.photo(class_="custom-file-input", id="inputGroupFile03", onChange="javascript:document.forms['form_id'].submit()") }}
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </div>
+                                {% if form.errors %}
+                                    <span class='errors text-danger'>
+                                            {% for error in form.photo.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </span>
+                                {% endif %}
+                                <div class="mt-3">
+                                    <div class="bg-warning rounded-top p-1 text-center text-white">Options</div>
+                                    <div class="row">
+                                        <div class="col-12 mt-0">
+                                            <div class="col-12 border ">
+                                                <div class="row pl-2 bg pt-0 pb-2">
+                                                    <div class="custom-control custom-radio col-6">
+                                                        <input type="radio" class="custom-control-input"
+                                                               id="radio"
+                                                               value="1"
+                                                               name="rg"
+                                                               onclick="if (this.value) window.location.href='/equalization?rg='+this.value"
+                                                                {% if session['rg_value']==1 %} checked {% endif %}
+                                                        >
+                                                        <label class="custom-control-label" for="radio">
+                                                            ຮູບພາບສີ
+                                                        </label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio col-6">
+                                                        <input type="radio" class="custom-control-input"
+                                                               id="radio1"
+                                                               value="0"
+                                                               name="rg"
+                                                               onclick="if (this.value) window.location.href='/equalization?rg='+this.value"
+                                                                {% if session['rg_value']==0 %} checked {% endif %}
+                                                        >
+                                                        <label class="custom-control-label" for="radio1">
+                                                            ຮູບພາບສີເທົາ
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="col-12 mt-1">
+                                                        <a href="/equalization?he=true"
+                                                           class="btn-outline-primary btn btn-sm col "><i
+                                                                class="fas fa-arrow-circle-right"></i> Histograms
+                                                            Equalization</a>
+                                                    </div>
+                                                    <div class="col-12 mt-1">
+                                                        <a href="/equalization?gf=true"
+                                                           class="btn-outline-danger btn btn-sm col "><i
+                                                                class="fas fa-arrow-circle-right"></i> Guassian
+                                                            Filter</a>
+                                                    </div>
+                                                    <div class="col-12 mt-1">
+                                                        <a href="/equalization?mf=true"
+                                                           class="btn-outline-warning btn btn-sm col "><i
+                                                                class="fas fa-arrow-circle-right"></i> Median Filter</a>
+                                                    </div>
+                                                    <div class="col-12 mt-1">
+                                                        <a href="/equalization?ngmf=true"
+                                                           class="btn-outline-success btn btn-sm col "><i
+                                                                class="fas fa-arrow-circle-right"></i> Noise (Guassian
+                                                            Filter and
+                                                            Median Filter)</a>
+                                                    </div>
+                                                    <div class="col-12 mt-2">
+                                                        <div class="form-group row">
+                                                            <label for="kzise"
+                                                                   class="col-sm-3 col-form-label">K-Size</label>
+                                                            <div class="col-sm-9">
+                                                                <input type="number" class="form-control input-group-sm"
+                                                                       id="kzise" placeholder="K-Size"
+                                                                       onmouseout="if (this.value) window.location.href='/equalization?kz='+this.value"
+                                                                       value="{%-if session['kz_value'] -%} {{ session['kz_value']|int }} {%- endif -%}"
+                                                                >
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="row pt-2">
+                                    <div class="col-12 ">
+                                        <a href="/clean" class="bg-danger btn text-white btn-sm float-right"><i
+                                                class="far fa-trash-alt"></i> ລຶບອອກ</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

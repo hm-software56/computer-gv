@@ -1,17 +1,17 @@
-import cv2 as cv
+import cv2
 import numpy as np
+from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
+img = cv2.imread('C:/Users/user/Desktop/1111/123.jpg')
+img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
 
-img = cv.imread("C:/Users/user/Desktop/1111/123.jpg")
-grayscaled = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
-#retval, threshold = cv2.threshold(img,125, 255, cv2.THRESH_TOZERO)
-retval1,threshold1 = cv.threshold(img,145, 255, cv.THRESH_BINARY)
+# equalize the histogram of the Y channel
+img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])
 
-th2 = cv.adaptiveThreshold(grayscaled, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY,19, 20)
-th3 = cv.adaptiveThreshold(grayscaled, 255, cv.ADAPTIVE_THRESH_MEAN_C, cv.THRESH_BINARY_INV,19, 20)
+# convert the YUV image back to RGB format
+img_output = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
 
-#cv2.imshow('THRESH_BINARY',threshold1)
-#cv2.imshow('threshold2',grayscaled)
-cv.imshow('ADAPTIVE_THRESH_GAUSSIAN_C',th2)
-cv.imshow('ADAPTIVE_THRESH_MEAN_C',th3)
-cv.waitKey(0)
-cv.destroyAllWindows()
+cv2.imshow('Color input image', img)
+cv2.imshow('Histogram equalized', img_output)
+
+cv2.waitKey(0)
