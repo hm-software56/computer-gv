@@ -1,0 +1,60 @@
+{% extends "bootstrap/base.html" %}
+{% block content %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif, "phetsarath OT";
+        }
+
+    </style>
+    <div class="container">
+        {% include 'navbar.html' %}
+        <div class="col-12 border">
+            <div class="row">
+                <div class="col-8 pt-2">
+                    <div class="card">
+                        <img class="card-img-top img-fluid" src="{{ url_for('camera_route.video_feed') }}">
+                    </div>
+                    <div class="col">
+                        <div class="row  text-white text-center rounded-bottom" style="background:#C50A0A">
+                            <div class="col-md-12 pr-0 ">
+                                {% if isrunung %}
+                                    <a class="bg-white text-danger btn btn-outline-danger " href="/close">
+                                        <i class="fa fa-window-close"></i> ປິດ Camera
+                                    </a>
+                                {% else %}
+                                    <a class="bg-white text-success btn-outline-success btn  mr-1" href="/open">
+                                        <i class="fa fa-box-open"></i> ເປິດ Camera
+                                    </a>
+                                {% endif %}
+                                <a class="btn btn-outline-warning bg-white text-warning  mr-1" href="/camera_normal">
+                                    <i class="fa fa-camera"></i> Normal
+                                </a>
+                                <a class="btn btn-outline-info bg-white text-info  mr-1" href="/camera_binary">
+                                    <i class="fa fa-camera"></i> Binaries
+                                </a>
+                                <a class="btn btn-secondary bg-white text-secondary  mr-1" href="/camera_gray">
+                                    <i class="fa fa-camera"></i> Gray
+                                </a>
+                                <a class="btn btn-outline-dark bg-white text-dark " href="/capture">
+                                    <i class="fa fa-camera"></i> Capture Camera
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-4 pt-2">
+                    <div class="bg-info text-white text-center rounded-top">
+                        <div class="col-md-12 p-2">
+                            Camera
+                        </div>
+                    </div>
+                    <div class="card border">
+                        <img src="/images/last" class="img-fluid img-rounded"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

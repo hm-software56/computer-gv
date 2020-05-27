@@ -1,4 +1,5 @@
 {% extends "bootstrap/base.html" %}
+
 {% block content %}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
     <style>
@@ -17,7 +18,6 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-6 pb-2">
-
                                         <div class="border border-danger rounded-top">
                                             <div class="bg-danger p-2 text-white font-weight-bold text-center">
                                                 ສະແດງຜົນ Original
@@ -165,10 +165,13 @@
                         <div class="border">
                             <div class="bg-info p-2 text-white font-weight-bold text-center">Form</div>
                             <div class="p-2">
-                                <div class="input-group">
-
-                                    <div class="custom-file">
-                                        {{ form.photo(class_="custom-file-input", id="inputGroupFile03", onChange="javascript:document.forms['form_id'].submit()") }}
+                                <div class="input-group ">
+                                    <div class="input-group-append ">
+                                        <a href="/clean" class="bg-danger btn text-white btn-sm float-right pt-2"><i
+                                                class="far fa-trash-alt"></i> Clean</a>
+                                    </div>
+                                    <div class="custom-file ">
+                                        {{ form.photo(class_="custom-file-input ", id="inputGroupFile03", onChange="javascript:document.forms['form_id'].submit()") }}
                                         <label class="custom-file-label" for="customFile">Choose file</label>
                                     </div>
                                 </div>
@@ -216,48 +219,120 @@
                                                                 class="fas fa-arrow-circle-right"></i> Histograms
                                                             Equalization</a>
                                                     </div>
-                                                    <div class="col-12 mt-1">
-                                                        <a href="/equalization?gf=true"
-                                                           class="btn-outline-danger btn btn-sm col "><i
-                                                                class="fas fa-arrow-circle-right"></i> Guassian
-                                                            Filter</a>
+                                                    <div class="border m-3 pt-2 pb-2 rounded row"
+                                                         style="background-color:#F4FCFB">
+                                                        <div class="col-12 mt-1">
+                                                            <label class="label font-italic media text-success">Threshold
+                                                                Type</label>
+                                                            <select class="form-control form-control-sm btn-outline-success custom-select-sm bg-white text-secondary"
+                                                                    id="exampleFormControlSelect1"
+                                                                    onchange="if (this.value) window.location.href='/equalization?thd_type='+this.value">
+                                                                <option></option>
+                                                                <option value="THRESH_BINARY"
+                                                                        {% if session['thd_type']=="THRESH_BINARY" %}
+                                                                        selected
+                                                                        {% endif %}
+                                                                >BINARY
+                                                                </option>
+                                                                <option value="THRESH_BINARY_INV"
+                                                                        {% if session['thd_type']=="THRESH_BINARY_INV" %}
+                                                                        selected
+                                                                        {% endif %}
+                                                                >BINARY INV
+                                                                </option>
+                                                                <option value="THRESH_TRUNC"
+                                                                        {% if session['thd_type']=="THRESH_TRUNC" %}
+                                                                        selected
+                                                                        {% endif %}
+                                                                >TRUNC
+                                                                </option>
+                                                                <option value="THRESH_TOZERO"
+                                                                        {% if session['thd_type']=="THRESH_TOZERO" %}
+                                                                        selected
+                                                                        {% endif %}
+                                                                >TOZERO
+                                                                </option>
+                                                                <option value="THRESH_TOZERO_INV"
+                                                                        {% if session['thd_type']=="THRESH_TOZERO_INV" %}
+                                                                        selected
+                                                                        {% endif %}
+                                                                >TOZERO INV
+                                                                </option>
+
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-12 mt-1">
+                                                            <label class="label text-danger font-italic">Adaptive
+                                                                Type</label>
+                                                            <select class=" form-control form-control-sm btn-outline-danger custom-select-sm bg-white text-secondary"
+                                                                    id="exampleFormControlSelect1"
+                                                                    onchange="if (this.value) window.location.href='/equalization?adt_type='+this.value">
+                                                                <option></option>
+                                                                <option value="ADAPTIVE_THRESH_MEAN_C"
+                                                                        {% if session['adt_type']=="ADAPTIVE_THRESH_MEAN_C" %}
+                                                                        selected
+                                                                        {% endif %}
+                                                                >ADAPTIVE_THRESH_MEAN_C
+                                                                </option>
+                                                                <option value="ADAPTIVE_THRESH_GAUSSIAN_C"
+                                                                        {% if session['adt_type']=="ADAPTIVE_THRESH_GAUSSIAN_C" %}
+                                                                        selected
+                                                                        {% endif %}
+                                                                >ADAPTIVE_THRESH_GAUSSIAN_C
+                                                                </option>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-12 mt-1">
-                                                        <a href="/equalization?mf=true"
-                                                           class="btn-outline-warning btn btn-sm col "><i
-                                                                class="fas fa-arrow-circle-right"></i> Median Filter</a>
-                                                    </div>
-                                                    <div class="col-12 mt-1">
-                                                        <a href="/equalization?ngmf=true"
-                                                           class="btn-outline-success btn btn-sm col "><i
-                                                                class="fas fa-arrow-circle-right"></i> Noise (Guassian
-                                                            Filter and
-                                                            Median Filter)</a>
-                                                    </div>
-                                                    <div class="col-12 mt-2">
-                                                        <div class="form-group row">
-                                                            <label for="kzise"
-                                                                   class="col-sm-3 col-form-label">K-Size</label>
-                                                            <div class="col-sm-9">
-                                                                <input type="number" class="form-control input-group-sm"
-                                                                       id="kzise" placeholder="K-Size"
-                                                                       onmouseout="if (this.value) window.location.href='/equalization?kz='+this.value"
-                                                                       value="{%-if session['kz_value'] -%} {{ session['kz_value']|int }} {%- endif -%}"
-                                                                >
+                                                    <div class="border ml-3 mr-3 pt-2 pb-2 rounded row"
+                                                         style="background-color:#F7FCFE">
+                                                        <div class="col-12 mt-2">
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-12">
+                                                                    <label for="kzise"
+                                                                           class="label media text-info font-italic">K-size</label>
+                                                                    <input type="number"
+                                                                           class="form-control form-control-sm  btn-outline-info bg-white text-info"
+                                                                           id="kzise" placeholder="K-Size"
+                                                                           onchange="if (this.value) window.location.href='/equalization?kz='+this.value"
+                                                                           value="{%-if session['kz_value'] -%} {{ session['kz_value']|int }} {%- endif -%}"
+                                                                    >
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                        <div class="col-12 mt-0">
+                                                            <a href="/equalization?gf=true"
+                                                               class="btn-outline-danger btn btn-sm col "><i
+                                                                    class="fas fa-arrow-circle-right"></i> Guassian
+                                                                Filter</a>
+                                                        </div>
+                                                        <div class="col-12 mt-1">
+                                                            <a href="/equalization?mf=true"
+                                                               class="btn-outline-warning btn btn-sm col "><i
+                                                                    class="fas fa-arrow-circle-right"></i> Median Filter</a>
+                                                        </div>
+                                                        <div class="col-12 mt-1">
+                                                            <div class="row">
+                                                                <div class="col-md-12 mt-1">
+                                                                    <a href="/equalization?ngmf=true&gs=true"
+                                                                       class="btn-outline-success btn btn-sm col "><i
+                                                                            class="fas fa-arrow-circle-right"></i> Noise
+                                                                        Guassian</a>
+                                                                </div>
+                                                                <div class="col-md-12 mt-1">
+                                                                    <a href="/equalization?ngmf=true&md=true"
+                                                                       class="btn-outline-primary btn btn-sm col "><i
+                                                                            class="fas fa-arrow-circle-right"></i> Noise
+                                                                        Mendian</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
 
-                                    </div>
-                                </div>
-                                <div class="row pt-2">
-                                    <div class="col-12 ">
-                                        <a href="/clean" class="bg-danger btn text-white btn-sm float-right"><i
-                                                class="far fa-trash-alt"></i> ລຶບອອກ</a>
                                     </div>
                                 </div>
                             </div>

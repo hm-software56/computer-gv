@@ -4,22 +4,22 @@ from models.histogram import Histogram
 from models.threshold import Threshold
 from models.equalization import Equalization
 from werkzeug.utils import secure_filename
-# from camera import Camera
-# import models.imggray as ig
 from random import randint
 import os
 from flask_bootstrap import Bootstrap
+from routes.camera_route import camera_route
 
 app = Flask(__name__)
 Bootstrap(app)
 app.secret_key = "daxiong"
+app.register_blueprint(camera_route)
 
 
 @app.route('/clean')
 def clean():
     Threshold().removesessionAll()
     return redirect(request.referrer)
-    #return redirect(url_for('threshold'))
+    # return redirect(url_for('threshold'))
 
 
 @app.route('/')

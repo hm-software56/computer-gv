@@ -8,6 +8,7 @@ from cv2 import cv2 as cv2
 import os
 from werkzeug.utils import secure_filename
 from matplotlib import pyplot as plt
+import random
 
 
 class Equalization(Form):
@@ -70,6 +71,19 @@ class Equalization(Form):
                         session['kz_value'] = int(request.args.get('kz'))
 
                     self.equalizeHist(os.path.join(app.static_folder, 'photos/'), session['org_name'])
+                elif request.args.get('adt_type'):
+                    session['adt_type'] = request.args.get('adt_type')
+                    session['gray_htg_gf_mf_name'] = self.adaptiveThresh(os.path.join(app.static_folder, 'photos/'),
+                                                                         session['equalize_file_name'])
+                    session['htg_gray_htg_gf_mf'] = self.htgOrgGray(os.path.join(app.static_folder, 'photos/'),
+                                                                    session['gray_htg_gf_mf_name'])
+                elif request.args.get('thd_type'):
+                    session['thd_type'] = request.args.get('thd_type')
+                    session['gray_htg_gf_mf_name'] = self.threshold(os.path.join(app.static_folder, 'photos/'),
+                                                                    session['equalize_file_name'])
+                    session['htg_gray_htg_gf_mf'] = self.htgOrgGray(os.path.join(app.static_folder, 'photos/'),
+                                                                    session['gray_htg_gf_mf_name'])
+
         except:
             return None
 
@@ -141,16 +155,74 @@ class Equalization(Form):
             return None
 
     def NoiseGMF(self, path, file_name):
+        img = cv2.imread(path + file_name)
+        if request.args.get('gs'):
+            gauss_median = cv2.GaussianBlur(img, (session['kz_value'], session['kz_value']), 0)
+        else:
+            gauss_median = cv2.medianBlur(img, session['kz_value'])
+
+        noise_img = self.sp_noise(gauss_median, 0.05)
+        f_name = str(randint(1000000000, 9999999999)) + session['org_name']
+        cv2.imwrite(path + f_name, noise_img)
+        return f_name
+
+    def sp_noise(self, image, prob):
+        output = np.zeros(image.shape, np.uint8)
+        thres = 1 - prob
+        for i in range(image.shape[0]):
+            for j in range(image.shape[1]):
+                rdn = random.random()
+                if rdn < prob:
+                    output[i][j] = 0
+                elif rdn > thres:
+                    output[i][j] = 255
+                else:
+                    output[i][j] = image[i][j]
+        return output
+
+    def threshold(self, path, file_name):
         try:
-            img = cv2.imread(path + file_name)
-            gauss = cv2.GaussianBlur(img, (session['kz_value'], session['kz_value']), 0)
-            median = cv2.medianBlur(img, session['kz_value'])
-            images = np.concatenate((gauss, median), 1)
+            img = cv2.imread(path + file_name, 0)
+            retval1, threshold = cv2.threshold(img, 162, 255, self.option_threshold())
             f_name = str(randint(1000000000, 9999999999)) + session['org_name']
-            cv2.imwrite(path + f_name, images)
+            cv2.imwrite(path + f_name, threshold)
             return f_name
         except:
             return None
 
+    def adaptiveThresh(self, path, file_name):
+        img = cv2.imread(path + file_name, 0)
+        adaptivethreshold = cv2.adaptiveThreshold(img, 255, self.option_adaptiveThresh(), self.option_threshold(), 11,
+                                                  2)
+        f_name = str(randint(1000000000, 9999999999)) + session['org_name']
+        cv2.imwrite(path + f_name, adaptivethreshold)
+        return f_name
+
     def removesessionAll(self):
         session.clear()
+
+    def option_adaptiveThresh(self):
+        try:
+            if session['adt_type'] == "ADAPTIVE_THRESH_MEAN_C":
+                adthd = cv2.ADAPTIVE_THRESH_MEAN_C
+            else:
+                adthd = cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+            return adthd
+        except:
+            return cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+
+    def option_threshold(self):
+        try:
+            if session['thd_type'] == "THRESH_BINARY_INV":
+                thd = cv2.THRESH_BINARY_INV
+            elif session['thd_type'] == "THRESH_TRUNC":
+                thd = cv2.THRESH_TRUNC
+            elif session['thd_type'] == "THRESH_TOZERO":
+                thd = cv2.THRESH_TOZERO
+            elif session['thd_type'] == "THRESH_TOZERO_INV":
+                thd = cv2.THRESH_TOZERO_INV
+            else:
+                thd = cv2.THRESH_BINARY
+            return thd
+        except:
+            return cv2.THRESH_BINARY
