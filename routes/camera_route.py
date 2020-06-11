@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, Response, redirect, url_for, 
 from models.camera import Camera
 from pathlib import Path
 import os
+import cv2
 
 camera_route = Blueprint('camera_route', __name__)
 camera = Camera()

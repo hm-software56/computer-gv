@@ -10,10 +10,12 @@ thread = None
 
 
 class Camera:
-    def __init__(self, fps=20, video_source=0):
+    def __init__(self, fps=20, video_source='http://192.168.50.15:8080/video'):
         self.fps = fps
         self.video_source = video_source
-        self.camera = cv2.VideoCapture(self.video_source)
+        self.camera = None
+        self.fource = None
+        self.out = None
         # We want a max of 5s history to be stored, thats 5s*fps
         self.max_frames = 5 * self.fps
         self.frames = []
@@ -23,6 +25,13 @@ class Camera:
     def run(self, start):
         global thread
         if thread is None or start == True:
+            self.camera = cv2.VideoCapture(self.video_source)
+            self.fource = cv2.VideoWriter_fourcc(*'XVID')
+            frame_width = int(self.camera.get(3))
+            frame_height = int(self.camera.get(4))
+            self.out = cv2.VideoWriter(os.path.join(root, '..', 'static', 'output.avi'), self.fource, 20.0,
+                                       (frame_width, frame_height))
+
             thread = threading.Thread(target=self._capture_loop)
             print("Starting thread...")
             thread.start()
@@ -43,8 +52,10 @@ class Camera:
                 elif self.action == "binary":
                     gray_frame = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
                     ret, im = cv2.threshold(gray_frame, 127, 255, cv2.THRESH_BINARY)
+                self.out.write(im)
                 self.frames.append(im)
-            time.sleep(dt)
+            # time.sleep(dt)
+        self.out.release()
 
     def stop(self):
         self.isrunning = False
@@ -56,7 +67,7 @@ class Camera:
             else:
                 img = self.frames[-1]
         else:
-            with open(os.path.join(root, '..', 'static', 'camera', 'no-image.jpg'), "rb") as f:
+            with open(os.path.join(root, '..', 'static', 'default', 'no-camera.jpg'), "rb") as f:
                 img = f.read()
         return img
 
@@ -101,5 +112,6 @@ class Camera:
 
     def camera_binaries(self):
         self.action = 'binary'
+
     def camera_normal(self):
         self.action = 'normal'

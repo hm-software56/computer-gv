@@ -1,22 +1,50 @@
-
-from PIL import ImageFont, ImageDraw, Image
-import numpy as np
 import cv2
 
-image = cv2.imread("142.jpg")
+def save_webcam(outPath,fps,mirror=False):
+    # Capturing video from webcam:
+    cap = cv2.VideoCapture(0)
 
-# Convert to PIL Image
-cv2_im_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-pil_im = Image.fromarray(cv2_im_rgb)
+    currentFrame = 0
 
-draw = ImageDraw.Draw(pil_im)
+    # Get current width of frame
+    width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)  # float
+    # Get current height of frame
+    height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)  # float
 
-# Choose a font
-font = ImageFont.truetype('Phetsarath_OT.ttf', 20)
+    # Define the codec and create VideoWriter object
+    fourcc = cv2.VideoWriter_fourcc(*"XVID")
+    out = cv2.VideoWriter(outPath, fourcc, fps, (int(width), int(height)))
 
-# Draw the text
-draw.text((0, 0), "ຫຫກກຫກຫກ", font=font)
+    while (cap.isOpened()):
 
-# Save the image
-cv2_im_processed = cv2.cvtColor(np.array(pil_im), cv2.COLOR_RGB2BGR)
-cv2.imwrite("result.png", cv2_im_processed)
+        # Capture frame-by-frame
+        ret, frame = cap.read()
+
+        if ret == True:
+            if mirror == True:
+                # Mirror the output video frame
+                frame = cv2.flip(frame, 5)
+            # Saves for video
+            out.write(frame)
+
+            # Display the resulting frame
+            cv2.imshow('frame', frame)
+        else:
+            break
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):  # if 'q' is pressed then quit
+            break
+
+        # To stop duplicate images
+        currentFrame += 1
+
+    # When everything done, release the capture
+    cap.release()
+    out.release()
+    cv2.destroyAllWindows()
+
+def main():
+    save_webcam('output.avi', 30.0,mirror=True)
+
+if __name__ == '__main__':
+    main()
