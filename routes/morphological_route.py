@@ -15,6 +15,12 @@ def add_header(convert):
     return convert
 
 
+@morphological_route.route("/cleanmorphological", methods=['GET', 'POST'])
+def cleanmorphological():
+    session.clear()
+    return redirect(url_for('morphological_route.morphological'))
+
+
 @morphological_route.route("/morphological", methods=['GET', 'POST'])
 def morphological():
     # session.clear()
@@ -26,29 +32,32 @@ def morphological():
 @morphological_route.route("/convert", methods=['GET', 'POST'])
 def convert():
     form = Morphological()
-    if request.args.get('w') and request.args.get('h'):
-        w = int(request.args.get('w'))
-        h = int(request.args.get('h'))
-    else:
-        w = 3
-        h = 3
-    if request.args.get('action') and request.args.get('action') == 'dilation':
-        form.CovertDilation(w, h)
-    elif request.args.get('action') and request.args.get('action') == 'erosion':
-        form.CovertErosion(w, h)
-    elif request.args.get('action') and request.args.get('action') == 'opening':
-        form.CovertOpening(w, h)
-    elif request.args.get('action') and request.args.get('action') == 'closing':
-        form.CovertClosing(w, h)
-    elif request.args.get('action') and request.args.get('action') == 'gradient':
-        form.CovertGradient(w, h)
-    elif request.args.get('action') and request.args.get('action') == 'tophat':
-        form.CovertTophat(w, h)
-    elif request.args.get('action') and request.args.get('action') == 'blackhat':
-        form.CovertBlackhat(w, h)
-    elif request.args.get('action') and request.args.get('action') == 'dilation_binary':
-        form.CovertDilationBinary(w, h)
-    elif request.args.get('action') and request.args.get('action') == 'erosion_binary':
-        form.CovertErosionBinary(w, h)
+    try:
+        if request.args.get('w') and request.args.get('h'):
+            w = int(request.args.get('w'))
+            h = int(request.args.get('h'))
+        else:
+            w = 3
+            h = 3
+        if request.args.get('action') and request.args.get('action') == 'dilation':
+            form.CovertDilation(w, h)
+        elif request.args.get('action') and request.args.get('action') == 'erosion':
+            form.CovertErosion(w, h)
+        elif request.args.get('action') and request.args.get('action') == 'opening':
+            form.CovertOpening(w, h)
+        elif request.args.get('action') and request.args.get('action') == 'closing':
+            form.CovertClosing(w, h)
+        elif request.args.get('action') and request.args.get('action') == 'gradient':
+            form.CovertGradient(w, h)
+        elif request.args.get('action') and request.args.get('action') == 'tophat':
+            form.CovertTophat(w, h)
+        elif request.args.get('action') and request.args.get('action') == 'blackhat':
+            form.CovertBlackhat(w, h)
+        elif request.args.get('action') and request.args.get('action') == 'dilation_binary':
+            form.CovertDilationBinary(w, h)
+        elif request.args.get('action') and request.args.get('action') == 'erosion_binary':
+            form.CovertErosionBinary(w, h)
+    except:
+        return redirect(url_for('morphological_route.morphological'))
 
     return render_template("/morphological.html", form=form)

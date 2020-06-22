@@ -28,11 +28,11 @@ class Camera:
         global thread
         if thread is None or start == True:
             self.camera = cv2.VideoCapture(self.video_source)
-            self.fource = cv2.VideoWriter_fourcc(*'XVID')
-            frame_width = int(self.camera.get(3))
-            frame_height = int(self.camera.get(4))
-            self.out = cv2.VideoWriter(os.path.join(root, '..', 'static', 'output.avi'), self.fource, 20.0,
-                                       (frame_width, frame_height))
+            # self.fource = cv2.VideoWriter_fourcc(*'XVID')
+            # frame_width = int(self.camera.get(3))
+            # frame_height = int(self.camera.get(4))
+            # self.out = cv2.VideoWriter(os.path.join(root, '..', 'static', 'output.avi'), self.fource, 20.0,
+            #                           (frame_width, frame_height))
 
             thread = threading.Thread(target=self._capture_loop)
             print("Starting thread...")
@@ -54,7 +54,7 @@ class Camera:
                 elif self.action == "binary":
                     gray_frame = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
                     ret, im = cv2.threshold(gray_frame, 127, 255, cv2.THRESH_BINARY)
-                self.out.write(im)
+                # self.out.write(im)
                 self.frames.append(im)
             time.sleep(dt)
         self.out.release()

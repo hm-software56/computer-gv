@@ -128,5 +128,5 @@ def equalization():
 
 
 if __name__ == '__main__':
-    #app.run(debug=True, port=2020)
-    app.run(debug=True, threaded=True, host='192.168.100.247', port=2020)
+    app.run(debug=True, port=2020)
+    # app.run(debug=True, threaded=True, host='192.168.100.247', port=2020)

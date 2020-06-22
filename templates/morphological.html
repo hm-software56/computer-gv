@@ -8,6 +8,10 @@
                     <form method="POST" action="/morphological" enctype="multipart/form-data"
                           id="form_id" class="pt-2">
                         <div class="input-group">
+                            <div class="input-group-append ">
+                                <a href="/cleanmorphological" class="bg-danger btn text-white btn-sm float-right pt-2"><i
+                                        class="far fa-trash-alt"></i> Clean</a>
+                            </div>
                             <div class="custom-file">
                                 {{ form.photo(class_="custom-file-input", id="inputGroupFile03", onChange="javascript:document.forms['form_id'].submit()") }}
                                 <label class="custom-file-label" for="customFile">Choose file</label>
