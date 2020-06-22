@@ -1,32 +1,108 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
 <style>
     .navbar a {
         color: white !important;
     }
+
+    .dropdown-submenu {
+        position: relative;
+    }
+
+    .dropdown-submenu a::after {
+        transform: rotate(-90deg);
+        position: absolute;
+        right: 3px;
+        top: 40%;
+    }
+
+    .dropdown-submenu:hover .dropdown-menu, .dropdown-submenu:focus .dropdown-menu {
+        display: flex;
+        flex-direction: column;
+        position: absolute !important;
+        margin-top: -30px;
+        left: 100%;
+        color: black !important;
+    }
+
+    @media (max-width: 992px) {
+        .dropdown-menu {
+            width: 50%;
+        }
+
+        .dropdown-menu .dropdown-submenu {
+            width: auto !important;
+        }
+
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif, "phetsarath OT";
+    }
+
+    .file-upload input[type='file'] {
+        display: none;
+    }
+
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown > .dropdown-toggle:active {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+
 </style>
-<nav class="navbar navbar-expand-sm bg-info navbar-inverse">
-    <a class="navbar-brand float-left" href="#">Computer Graphics and Vision</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+<nav class="navbar navbar-expand-sm bg-info navbar-inverse d-flex">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+            aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="float-right" id="navbarSupportedContent">
-        <ul class="navbar-nav text-right text-white">
-            <li class="nav-item active float-right">
-                <a class="nav-link" href="/">ວິທີການຕິດຕັ້ງ ແລະ Run</a>
+    <a class="navbar-brand float-left" href="#">Computer Graphics and Vision</a>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active ml-auto">
+                <a class="nav-link" href="/"> <i class="fa fa-cogs"></i> ວິທີການຕິດຕັ້ງ ແລະ Run</a>
             </li>
-            <!--<li class="nav-item active float-right">
-                <a class="nav-link" href="/grayimg">ບົດຝືກຫັດ 1</a>
-            </li>-->
-            <li class="nav-item active">
-                <a class="nav-link" href="/histogram">ບົດຝືກຫັດ(ວຽກບ້ານ) 1</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/threshold">ບົດຝືກຫັດ(ວຽກບ້ານ) 2</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/equalization">ບົດຝືກຫັດ(ວຽກບ້ານ) 3</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/stream">ບົດຝືກຫັດ(ວຽກບ້ານ) 4</a>
+            <li class="nav-item dropdown ml-auto">
+                <a class="nav-link dropdown-toggle " href="http://example.com" id="navbarDropdownMenuLink"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-home"></i> ບົດຝືກຫັດ (ວຽກບ້ານ)
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
+                    style="background:#007bff; width: 250px !important;">
+                    <li class="nav-item active"><a class="nav-link" href="/histogram">
+                        <i class="fa fa-leaf"></i>
+                        ບົດຝືກຫັດ(ວຽກບ້ານ)
+                        2</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/threshold">
+                            <i class="fa fa-leaf"></i>
+                            ບົດຝືກຫັດ(ວຽກບ້ານ) 3</a>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/equalization"><i class="fa fa-leaf"></i> ບົດຝືກຫັດ(ວຽກບ້ານ) 4</a>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/stream"><i class="fa fa-leaf"></i> ບົດຝືກຫັດ(ວຽກບ້ານ) 5-6</a>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/morphological"><i class="fa fa-leaf"></i> ບົດຝືກຫັດ(ວຽກບ້ານ) 7</a>
+                    </li>
+                    <!--<li class="dropdown-submenu">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                           href="#">Something else here</a>
+                        <ul class="dropdown-menu" style="background: #007bff">
+                            <a class="dropdown-item" href="#">A</a>
+                            <a class="dropdown-item" href="#">b</a>
+                        </ul>
+                    </li>-->
+                </ul>
             </li>
         </ul>
     </div>

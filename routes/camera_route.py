@@ -3,6 +3,9 @@ from models.camera import Camera
 from pathlib import Path
 import os
 import cv2
+from models.uplaod import Upload
+from random import randint
+from werkzeug.utils import secure_filename
 
 camera_route = Blueprint('camera_route', __name__)
 camera = Camera()
@@ -36,8 +39,20 @@ def camera_binary():
     return redirect(url_for('camera_route.stream_page'))
 
 
-@camera_route.route("/open")
+@camera_route.route("/open", methods=['GET', 'POST'])
 def opencamera():
+    form = Upload()
+    if form.validate_on_submit():
+        # delete old file
+        for file in os.scandir(os.path.join(root, '..', 'static', 'video')):
+            os.unlink(file.path)
+        
+        f = form.photo.data
+        filename = secure_filename(f.filename)
+        ext = filename.rsplit(".", 1)[1]
+        filename = str(randint(1000000000, 9999999999)) + '.' + ext
+        f.save(os.path.join(root, '..', 'static', 'video', filename))
+        camera.video_source = os.path.join(root, '..', 'static', 'video', filename)
     camera.run(True)
     return redirect(url_for('camera_route.stream_page'))
 
@@ -72,7 +87,8 @@ def last_image():
 
 @camera_route.route("/stream")
 def stream_page():
-    return render_template("/video.html", isrunung=camera.isrunning)
+    form = Upload()
+    return render_template("/video.html", isrunung=camera.isrunning, form=form)
 
 
 @camera_route.route("/video_feed")

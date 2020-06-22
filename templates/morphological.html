@@ -1,0 +1,156 @@
+{% extends "bootstrap/base.html" %}
+{% block content %}
+    <div class="container">
+        {% include 'navbar.html' %}
+        <div class="col-12 border">
+            <div class="row border-bottom pb-2">
+                <div class="col-md-4">
+                    <form method="POST" action="/morphological" enctype="multipart/form-data"
+                          id="form_id" class="pt-2">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                {{ form.photo(class_="custom-file-input", id="inputGroupFile03", onChange="javascript:document.forms['form_id'].submit()") }}
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                        </div>
+                        {% if form.errors %}
+                            <span class='errors text-danger'>
+                                            {% for error in form.photo.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </span>
+                        {% endif %}
+                        {{ form.csrf_token }}
+                    </form>
+                </div>
+                <div class="col-md-8">
+                    <form method="GET" action="/convert" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-1 pt-3">
+                                ຂະໜາດ:
+                            </div>
+                            <div class="col-md-2 pt-2">
+                                <input type="number" min="1"
+                                       value="{%-if session['w'] -%} {{ session['w']|int }}{% endif %}"
+                                       id="wh" name="w"
+                                       class="form-control">
+                            </div>
+                            <div class="col-md-1 pt-3">X</div>
+                            <div class="col-md-2 pt-2">
+                                <input type="number" min="1" id="wh" name="h"
+                                       value="{%- if session['h'] -%} {{ session['h']|int }}{% endif %}"
+                                       class="form-control">
+                            </div>
+                            <div class="col-md-6 pt-2">
+
+                                <div class=" btn-group dropdown" role="group"
+                                     aria-label="Button group with nested dropdown">
+                                    <div class="btn-group dropdown" role="group">
+                                        <button id="btnGroupDrop1" type="button"
+                                                class="bg-white text-dark btn-outline-success btn  mr-1 dropdown-toggle"
+                                                data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-eye"></i> Convert ຮູບພາບ
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                            <button class="bg-white text-dark btn-outline-success btn  dropdown-item"
+                                                    name="action" value="dilation">
+                                                <i class="fa fa-code-branch"></i> Dilation
+                                            </button>
+                                            <div class="dropdown-divider"></div>
+                                            <button class="bg-white text-dark btn-outline-success btn  dropdown-item"
+                                                    name="action" value="erosion">
+                                                <i class="fa fa-code-branch"></i> Erosion
+                                            </button>
+                                            <div class="dropdown-divider"></div>
+                                            <button class="bg-white text-dark btn-outline-success btn  dropdown-item"
+                                                    name="action" value="opening">
+                                                <i class="fa fa-code-branch"></i> Opening
+                                            </button>
+                                            <div class="dropdown-divider"></div>
+                                            <button class="bg-white text-dark btn-outline-success btn  dropdown-item"
+                                                    name="action" value="closing">
+                                                <i class="fa fa-code-branch"></i> Closing
+                                            </button>
+                                            <div class="dropdown-divider"></div>
+                                            <button class="bg-white text-dark btn-outline-success btn  dropdown-item"
+                                                    name="action" value="gradient">
+                                                <i class="fa fa-code-branch"></i> Gradient
+                                            </button>
+                                            <div class="dropdown-divider"></div>
+                                            <button class="bg-white text-dark btn-outline-success btn  dropdown-item"
+                                                    name="action" value="tophat">
+                                                <i class="fa fa-code-branch"></i> Top Hat
+                                            </button>
+                                            <div class="dropdown-divider"></div>
+                                            <button class="bg-white text-dark btn-outline-success btn  dropdown-item"
+                                                    name="action" value="blackhat">
+                                                <i class="fa fa-code-branch"></i> Black Hat
+                                            </button>
+                                            <div class="dropdown-divider"></div>
+                                            <div class="btn-group dropright dropdown" style="display: inline-flex ">
+                                                <span
+                                                        class="bg-white text-dark btn-outline-success   dropdown-item dropdown-toggle"
+                                                        data-toggle="dropdown"
+                                                        aria-haspopup="flase" aria-expanded="true">
+                                                    <i class="fa fa-code-branch"></i> Morphological Binary
+                                                </span>
+                                                <div class="dropdown-menu " x-placement="right-start"
+                                                     style="position: absolute; transform: translate3d(227px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                    <button class="bg-white text-dark btn-outline-success btn  dropdown-item"
+                                                            name="action" value="dilation_binary">
+                                                        <i class="fa fa-code-branch"></i> Dilation Binary
+                                                    </button>
+                                                    <div class="dropdown-divider"></div>
+                                                    <button class="bg-white text-dark btn-outline-success btn  dropdown-item"
+                                                            name="action" value="erosion_binary">
+                                                        <i class="fa fa-code-branch"></i> Erosion Binary
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 pt-2">
+                    <div class="p-2 bg-info text-center text-white">ຮູບພາບ Original</div>
+                    {% if session['img_name_org'] %}
+                        <img src="static\photos\{{ session['img_name_org'] }}"
+                             class="rounded mx-auto d-block img-thumbnail img-fluid">
+                    {% else %}
+                        <div class="row pt-2">
+                            <div class="col">
+                                <img src="static\default\no-image.jpg"
+                                     class="rounded mx-auto d-block img-thumbnail img-fluid">
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-6 pt-2">
+                    <div class="p-2 bg-danger text-center text-white">
+                        ຮູບພາບ Covert
+                        {% if session['covert_title'] %}
+                            {{ session['covert_title'] }}
+                        {% endif %}
+                    </div>
+                    {% if session['img_name_covert'] %}
+                        <img src="static\photos\{{ session['img_name_covert'] }}"
+                             class="rounded mx-auto d-block img-thumbnail img-fluid">
+                    {% else %}
+                        <div class="row pt-2">
+                            <div class="col">
+                                <img src="static\default\no-image.jpg"
+                                     class="rounded mx-auto d-block img-thumbnail img-fluid">
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

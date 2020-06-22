@@ -4,13 +4,15 @@ import threading
 import os
 import datetime, time
 from pathlib import Path
+from random import randint
+from werkzeug.utils import secure_filename
 
 root = os.path.dirname(os.path.abspath(__file__))
 thread = None
 
 
 class Camera:
-    def __init__(self, fps=20, video_source='http://192.168.50.15:8080/video'):
+    def __init__(self, fps=20, video_source=0):
         self.fps = fps
         self.video_source = video_source
         self.camera = None
@@ -54,7 +56,7 @@ class Camera:
                     ret, im = cv2.threshold(gray_frame, 127, 255, cv2.THRESH_BINARY)
                 self.out.write(im)
                 self.frames.append(im)
-            # time.sleep(dt)
+            time.sleep(dt)
         self.out.release()
 
     def stop(self):
