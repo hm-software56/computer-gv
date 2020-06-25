@@ -1,157 +1,158 @@
-{% extends "bootstrap/base.html" %}
+{% extends "layout.html" %}
 {% block content %}
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif, "phetsarath OT";
-        }
-
-    </style>
-    <div class="container">
-        {% include 'navbar.html' %}
-        <div>
-            <form method="POST" action="/histogram" enctype="multipart/form-data" id="form_id">
-                {{ form.csrf_token }}
-                <div class="row">
-                    <div class="col-12">
-                        <table class="table table-bordered">
-                            <tr>
-                                <td width="300">
-                                    <div class="bg-info text-white text-center p-2">
-                                        ຮູບພາບ Origin
-                                    </div>
-                                    {% if org_name %}
-                                        <div class="row">
-                                            <div class="col">
-                                                <img src="static\photos\{{ org_name }}"
+    <div id="particles">
+        <div id="intro" class="h-100">
+            <div class="container">
+                {% include 'navbar.html' %}
+                <div id="bg">
+                    <form method="POST" action="/histogram" enctype="multipart/form-data" id="form_id">
+                        {{ form.csrf_token }}
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td width="300">
+                                            <div class="bg-info text-white text-center p-2">
+                                                ຮູບພາບ Origin
+                                            </div>
+                                            {% if org_name %}
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <img src="static\photos\{{ org_name }}"
+                                                             class="rounded mx-auto d-block img-thumbnail img-fluid">
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <div class="row pt-2">
+                                                    <div class="col">
+                                                        <img src="static\default\no-image.jpg"
+                                                             class="rounded mx-auto d-block img-thumbnail img-fluid">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                        <td rowspan="2">
+                                            <div class="p-2 bg-info text-center text-white">ເສັ້ນສະແດງ Histogram</div>
+                                            {% if graph_img %}
+                                                <img src="static\photos\{{ graph_img }}"
                                                      class="rounded mx-auto d-block img-thumbnail img-fluid">
-                                            </div>
-                                        </div>
-                                    {% else %}
-                                        <div class="row pt-2">
-                                            <div class="col">
-                                                <img src="static\default\no-image.jpg"
-                                                     class="rounded mx-auto d-block img-thumbnail img-fluid">
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                </td>
-                                <td rowspan="2">
-                                    <div class="p-2 bg-info text-center text-white">ເສັ້ນສະແດງ Histogram</div>
-                                    {% if graph_img %}
-                                        <img src="static\photos\{{ graph_img }}"
-                                             class="rounded mx-auto d-block img-thumbnail img-fluid">
-                                    {% else %}
-                                        <div class="row pt-2">
-                                            <div class="col">
-                                                <img src="static\default\no-image.jpg"
-                                                     class="rounded mx-auto d-block img-thumbnail img-fluid">
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                </td>
-                                <td rowspan="2" width="300">
-                                    <div class="col-12">
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                {{ form.photo(class_="custom-file-input", id="inputGroupFile03", onChange="javascript:document.forms['form_id'].submit()") }}
-                                                <label class="custom-file-label" for="customFile">Choose file</label>
-                                            </div>
-                                            <!--<div class="input-group-append">
+                                            {% else %}
+                                                <div class="row pt-2">
+                                                    <div class="col">
+                                                        <img src="static\default\no-image.jpg"
+                                                             class="rounded mx-auto d-block img-thumbnail img-fluid">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                        <td rowspan="2" width="300">
+                                            <div class="col-12">
+                                                <div class="input-group">
+                                                    <div class="custom-file">
+                                                        {{ form.photo(class_="custom-file-input", id="inputGroupFile03", onChange="javascript:document.forms['form_id'].submit()") }}
+                                                        <label class="custom-file-label" for="customFile">Choose
+                                                            file</label>
+                                                    </div>
+                                                    <!--<div class="input-group-append">
                                                 {{ form.save(class_="btn btn-primary") }}
                                             </div>-->
-                                        </div>
-                                        {% if form.errors %}
-                                            <span class='errors text-danger'>
+                                                </div>
+                                                {% if form.errors %}
+                                                    <span class='errors text-danger'>
                                             {% for error in form.photo.errors %}
                                                 {{ error }}
                                             {% endfor %}
                                         </span>
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-12 pt-2">
-                                        <div class="form-group bg-info">
-                                            <div class=" text-white text-center p-2">ເລືອກແມ່ສີ</div>
-                                            <select class="form-control" id="exampleFormControlSelect1"
-                                                    onchange="if (this.value) window.location.href='/histogram?org_name={{ org_name }}&list='+this.value">
-                                                <option value="3" selected>Origin</option>
-                                                <option value="2" {% if list=='2' %} selected {% endif %}>Red</option>
-                                                <option value="1" {% if list=='1' %} selected {% endif %} >Green
-                                                </option>
-                                                <option value="0" {% if list=='0' %} selected {% endif %}>Blue</option>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-12 pt-2">
+                                                <div class="form-group bg-info">
+                                                    <div class=" text-white text-center p-2">ເລືອກແມ່ສີ</div>
+                                                    <select class="form-control" id="exampleFormControlSelect1"
+                                                            onchange="if (this.value) window.location.href='/histogram?org_name={{ org_name }}&list='+this.value">
+                                                        <option value="3" selected>Origin</option>
+                                                        <option value="2" {% if list=='2' %} selected {% endif %}>Red
+                                                        </option>
+                                                        <option value="1" {% if list=='1' %} selected {% endif %} >Green
+                                                        </option>
+                                                        <option value="0" {% if list=='0' %} selected {% endif %}>Blue
+                                                        </option>
 
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 pt-2 ">
-                                        <div class="bg-info   border-left border">
-                                            <div class="p-2 text-white text-center">Histogram</div>
-                                            <div class="bg-white p-1">
-                                                <div class="form-check">
-                                                    <label class="form-check-label" for="radio0">
-                                                        <input type="radio" class="form-check-input"
-                                                               id="radio0" {% if action=='3' %} checked
-                                                               {% else %}checked{% endif %}
-                                                               onclick="location.href='/histogram?action=3&list={{ list }}&org_name={{ org_name }}&name={{ covert_name }}'"
-                                                               name="optradio"
-                                                        >All
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <label class="form-check-label" for="radio1">
-                                                        <input type="radio" class="form-check-input" id="radio1"
-                                                                {% if action=='2' %} checked {% endif %}
-                                                               onclick="location.href='/histogram?action=2&list={{ list }}&org_name={{ org_name }}&name={{ covert_name }}'"
-                                                               name="optradio" value="red"
-                                                        >Red
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <label class="form-check-label " for="radio2">
-                                                        <input type="radio" class="form-check-input" id="radio2"
-                                                                {% if action=='1' %} checked {% endif %}
-                                                               onclick="location.href='/histogram?action=1&list={{ list }}&org_name={{ org_name }}&name={{ covert_name }}'"
-                                                               name="optradio" value="green">Green
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <label class="form-check-label" for="radio2">
-                                                        <input type="radio" class="form-check-input" id="radio2"
-                                                                {% if action=='0' %} checked {% endif %}
-                                                               onclick="location.href='/histogram?action=0&list={{ list }}&org_name={{ org_name }}&name={{ covert_name }}'"
-                                                               name="optradio" value="blue">Blue
-                                                    </label>
+                                                    </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="bg-info text-white text-center p-2">
-                                        ຮູບພາບ Convert
-                                    </div>
-                                    {% if covert_name %}
-                                        <div class="row">
-                                            <div class="col">
-                                                <img src="static\photos\{{ covert_name }}"
-                                                     class="rounded mx-auto d-block img-thumbnail img-fluid">
+                                            <div class="col-12 pt-2 ">
+                                                <div class="bg-info   border-left border">
+                                                    <div class="p-2 text-white text-center">Histogram</div>
+                                                    <div class="bg-white p-1">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label" for="radio0">
+                                                                <input type="radio" class="form-check-input"
+                                                                       id="radio0" {% if action=='3' %} checked
+                                                                       {% else %}checked{% endif %}
+                                                                       onclick="location.href='/histogram?action=3&list={{ list }}&org_name={{ org_name }}&name={{ covert_name }}'"
+                                                                       name="optradio"
+                                                                >All
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <label class="form-check-label" for="radio1">
+                                                                <input type="radio" class="form-check-input" id="radio1"
+                                                                        {% if action=='2' %} checked {% endif %}
+                                                                       onclick="location.href='/histogram?action=2&list={{ list }}&org_name={{ org_name }}&name={{ covert_name }}'"
+                                                                       name="optradio" value="red"
+                                                                >Red
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <label class="form-check-label " for="radio2">
+                                                                <input type="radio" class="form-check-input" id="radio2"
+                                                                        {% if action=='1' %} checked {% endif %}
+                                                                       onclick="location.href='/histogram?action=1&list={{ list }}&org_name={{ org_name }}&name={{ covert_name }}'"
+                                                                       name="optradio" value="green">Green
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <label class="form-check-label" for="radio2">
+                                                                <input type="radio" class="form-check-input" id="radio2"
+                                                                        {% if action=='0' %} checked {% endif %}
+                                                                       onclick="location.href='/histogram?action=0&list={{ list }}&org_name={{ org_name }}&name={{ covert_name }}'"
+                                                                       name="optradio" value="blue">Blue
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    {% else %}
-                                        <div class="row pt-2">
-                                            <div class="col">
-                                                <img src="static\default\no-image.jpg"
-                                                     class="rounded mx-auto d-block img-thumbnail img-fluid">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="bg-info text-white text-center p-2">
+                                                ຮູບພາບ Convert
                                             </div>
-                                        </div>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                                            {% if covert_name %}
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <img src="static\photos\{{ covert_name }}"
+                                                             class="rounded mx-auto d-block img-thumbnail img-fluid">
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <div class="row pt-2">
+                                                    <div class="col">
+                                                        <img src="static\default\no-image.jpg"
+                                                             class="rounded mx-auto d-block img-thumbnail img-fluid">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 {% endblock %}

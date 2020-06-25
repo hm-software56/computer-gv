@@ -1,85 +1,84 @@
-{% extends "bootstrap/base.html" %}
+{% extends "layout.html" %}
 
 {% block content %}
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif, "phetsarath OT";
-        }
-    </style>
-    <div class="container">
-        {% include 'navbar.html' %}
-        <div class="col pt-2">
-            <div class="row">
-                <form method="POST" action="/grayimg" enctype="multipart/form-data">
-                    {{ form.csrf_token }}
+    <div id="particles">
+        <div id="intro" class="h-100">
+            <div class="container">
+                {% include 'navbar.html' %}
+                <div class="col pt-2" id="bg">
                     <div class="row">
-                        <div class="col-md-5">
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    {{ form.photo(class_="custom-file-input", _id="inputGroupFile03") }}
-                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                </div>
-                                <div class="input-group-append">
-                                    {{ form.save(class_="btn btn-primary") }}
-                                </div>
-                            </div>
-                            {% if form.errors %}
-                                <span class='errors text-danger'>
+                        <form method="POST" action="/grayimg" enctype="multipart/form-data">
+                            {{ form.csrf_token }}
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            {{ form.photo(class_="custom-file-input", _id="inputGroupFile03") }}
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                        </div>
+                                        <div class="input-group-append">
+                                            {{ form.save(class_="btn btn-primary") }}
+                                        </div>
+                                    </div>
+                                    {% if form.errors %}
+                                        <span class='errors text-danger'>
                             {% for error in form.photo.errors %}
                                 {{ error }}
                             {% endfor %}
                             </span>
-                            {% endif %}
-                        </div>
+                                    {% endif %}
+                                </div>
+                                {% if org_name %}
+                                    <div class="col-md-2">
+                                        <a href="{{ url_for('grayimg',action='gr1',name=filename) }}"
+                                           class="btn btn-outline-secondary">ພາບ Gray</a>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="{{ url_for('grayimg',action='gr2',name=filename) }}"
+                                           class="btn btn-outline-success">ພາບ Green</a>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="{{ url_for('grayimg',action='orgin',name=filename) }}"
+                                           class="btn btn-outline-info">ພາບ Origin</a>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <a href="{{ url_for('grayimg') }}" class="btn btn-outline-danger">Exit</a>
+                                    </div>
+                                {% else %}
+                                    <div class="col-md-2">
+                                        <a href="#" class="btn btn-outline-secondary">ພາບ Gray</a>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="#" class="btn btn-outline-success">ພາບ Green</a>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="#" class="btn btn-outline-info">ພາບ Origin</a>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <a href="#" class="btn btn-outline-danger">Exit</a>
+                                    </div>
+                                {% endif %}
+
+                            </div>
+
+                        </form>
+
                         {% if org_name %}
-                            <div class="col-md-2">
-                                <a href="{{ url_for('grayimg',action='gr1',name=filename) }}"
-                                   class="btn btn-outline-secondary">ພາບ Gray</a>
-                            </div>
-                            <div class="col-md-2">
-                                <a href="{{ url_for('grayimg',action='gr2',name=filename) }}"
-                                   class="btn btn-outline-success">ພາບ Green</a>
-                            </div>
-                            <div class="col-md-2">
-                                <a href="{{ url_for('grayimg',action='orgin',name=filename) }}"
-                                   class="btn btn-outline-info">ພາບ Origin</a>
-                            </div>
-                            <div class="col-md-1">
-                                <a href="{{ url_for('grayimg') }}" class="btn btn-outline-danger">Exit</a>
+                            <div class="row pt-2">
+                                <div class="col">
+                                    <img src="{{ org_name }}" class="rounded mx-auto d-block img-thumbnail img-fluid">
+                                </div>
                             </div>
                         {% else %}
-                            <div class="col-md-2">
-                                <a href="#" class="btn btn-outline-secondary">ພາບ Gray</a>
-                            </div>
-                            <div class="col-md-2">
-                                <a href="#" class="btn btn-outline-success">ພາບ Green</a>
-                            </div>
-                            <div class="col-md-2">
-                                <a href="#" class="btn btn-outline-info">ພາບ Origin</a>
-                            </div>
-                            <div class="col-md-1">
-                                <a href="#" class="btn btn-outline-danger">Exit</a>
+                            <div class="row pt-2">
+                                <div class="col">
+                                    <img src="static\default\no-image.jpg"
+                                         class="rounded mx-auto d-block img-thumbnail img-fluid">
+                                </div>
                             </div>
                         {% endif %}
-
                     </div>
-
-                </form>
-
-                {% if org_name %}
-                    <div class="row pt-2">
-                        <div class="col">
-                            <img src="{{ org_name }}" class="rounded mx-auto d-block img-thumbnail img-fluid">
-                        </div>
-                    </div>
-                {% else %}
-                    <div class="row pt-2">
-                        <div class="col">
-                            <img src="static\default\no-image.jpg"
-                                 class="rounded mx-auto d-block img-thumbnail img-fluid">
-                        </div>
-                    </div>
-                {% endif %}
+                </div>
             </div>
         </div>
     </div>

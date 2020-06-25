@@ -1,345 +1,358 @@
-{% extends "bootstrap/base.html" %}
-
+{% extends "layout.html" %}
 {% block content %}
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif, "phetsarath OT";
-        }
-    </style>
-    <div class="container">
-        {% include 'navbar.html' %}
-        <div class="pt-2">
-            <form method="POST" action="/equalization" enctype="multipart/form-data" id="form_id">
-                {{ form.csrf_token }}
-                <div class="row">
-                    <div class="col-8">
+    <div id="particles">
+        <div id="intro" class="h-100">
+            <div class="container">
+                {% include 'navbar.html' %}
+                <div class="pt-2" id="bg">
+                    <form method="POST" action="/equalization" enctype="multipart/form-data" id="form_id">
+                        {{ form.csrf_token }}
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-8">
                                 <div class="row">
-                                    <div class="col-6 pb-2">
-                                        <div class="border border-danger rounded-top">
-                                            <div class="bg-danger p-2 text-white font-weight-bold text-center">
-                                                ສະແດງຜົນ Original
-                                            </div>
-                                            {% if session['org_name'] %}
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <img src="static\photos\{{ session['org_name'] }}"
-                                                             class="img-fluid" data-toggle="modal"
-                                                             data-target=".bd-example-modal-lg">
-                                                        <div class="modal fade bd-example-modal-lg" tabindex="-1"
-                                                             role="dialog"
-                                                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog modal-lg">
-                                                                <div class="modal-content">
-                                                                    <img src="static\photos\{{ session['org_name'] }}"
-                                                                         class="img-fluid">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-6 pb-2">
+                                                <div class="border border-danger rounded-top">
+                                                    <div class="bg-danger p-2 text-white font-weight-bold text-center">
+                                                        ສະແດງຜົນ Original
+                                                    </div>
+                                                    {% if session['org_name'] %}
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <img src="static\photos\{{ session['org_name'] }}"
+                                                                     class="img-fluid" data-toggle="modal"
+                                                                     data-target=".bd-example-modal-lg">
+                                                                <div class="modal fade bd-example-modal-lg"
+                                                                     tabindex="-1"
+                                                                     role="dialog"
+                                                                     aria-labelledby="myLargeModalLabel"
+                                                                     aria-hidden="true">
+                                                                    <div class="modal-dialog modal-lg">
+                                                                        <div class="modal-content">
+                                                                            <img src="static\photos\{{ session['org_name'] }}"
+                                                                                 class="img-fluid">
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    {% else %}
+                                                        <div class="row pt-2">
+                                                            <div class="col">
+                                                                <img src="static\default\no-image.jpg"
+                                                                     class="img-fluid">
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
                                                 </div>
-                                            {% else %}
-                                                <div class="row pt-2">
-                                                    <div class="col">
-                                                        <img src="static\default\no-image.jpg"
-                                                             class="img-fluid">
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="border border-secondary rounded-top">
+                                                    <div class="{% if session['rg_value']==1 %} bg-success {% else %}bg-secondary {% endif %} p-2 text-white font-weight-bold text-center">
+                                                        ສະແດງຜົນ {{ session['label_name'] }}
                                                     </div>
+                                                    {% if session['gray_htg_gf_mf_name'] %}
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <img src="static\photos\{{ session['gray_htg_gf_mf_name'] }}"
+                                                                     class="img-fluid" data-toggle="modal"
+                                                                     data-target=".bd-example-modal-lg1">
+                                                                <div class="modal fade bd-example-modal-lg1"
+                                                                     tabindex="-1"
+                                                                     role="dialog"
+                                                                     aria-labelledby="myLargeModalLabel"
+                                                                     aria-hidden="true">
+                                                                    <div class="modal-dialog modal-lg">
+                                                                        <div class="modal-content">
+                                                                            <img src="static\photos\{{ session['gray_htg_gf_mf_name'] }}"
+                                                                                 class="img-fluid">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% else %}
+                                                        <div class="row pt-2">
+                                                            <div class="col-md">
+                                                                <img src="static\default\no-image.jpg"
+                                                                     class="img-fluid">
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
                                                 </div>
-                                            {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 ">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="border border-danger rounded-top">
+                                                    <div class="bg-danger p-2 text-white font-weight-bold text-center">
+                                                        ສະແດງເສັ້ນ Histogram
+                                                    </div>
+                                                    {% if session['htg_org'] %}
+                                                        <div class="row">
+                                                            <div class="col">
+
+                                                                <img src="static\photos\{{ session['htg_org'] }}"
+                                                                     class="img-fluid" data-toggle="modal"
+                                                                     data-target=".bd-example-modal-lg2">
+                                                                <div class="modal fade bd-example-modal-lg2"
+                                                                     tabindex="-1"
+                                                                     role="dialog"
+                                                                     aria-labelledby="myLargeModalLabel"
+                                                                     aria-hidden="true">
+                                                                    <div class="modal-dialog modal-lg">
+                                                                        <div class="modal-content">
+                                                                            <img src="static\photos\{{ session['htg_org'] }}"
+                                                                                 class="img-fluid">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    {% else %}
+                                                        <div class="row pt-2">
+                                                            <div class="col">
+                                                                <img src="static\default\no-image.jpg"
+                                                                     class="img-fluid">
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mt-1">
+                                                <div class="border border-secondary rounded-top">
+                                                    <div class="{% if session['rg_value']==1 %} bg-success {% else %}bg-secondary {% endif %}  p-2 text-white font-weight-bold text-center">
+                                                        ສະແດງເສັ້ນ {{ session['label_name'] }} Histogram
+                                                    </div>
+                                                    {% if session['htg_gray_htg_gf_mf'] %}
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <img src="static\photos\{{ session['htg_gray_htg_gf_mf'] }}"
+                                                                     class="img-fluid" data-toggle="modal"
+                                                                     data-target=".bd-example-modal-lg3">
+                                                                <div class="modal fade bd-example-modal-lg3"
+                                                                     tabindex="-1"
+                                                                     role="dialog"
+                                                                     aria-labelledby="myLargeModalLabel"
+                                                                     aria-hidden="true">
+                                                                    <div class="modal-dialog modal-lg">
+                                                                        <div class="modal-content">
+                                                                            <img src="static\photos\{{ session['htg_gray_htg_gf_mf'] }}"
+                                                                                 class="img-fluid">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% else %}
+                                                        <div class="row pt-2">
+                                                            <div class="col-md">
+                                                                <img src="static\default\no-image.jpg"
+                                                                     class="img-fluid">
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-6">
-                                        <div class="border border-secondary rounded-top">
-                                            <div class="{% if session['rg_value']==1 %} bg-success {% else %}bg-secondary {% endif %} p-2 text-white font-weight-bold text-center">
-                                                ສະແດງຜົນ {{ session['label_name'] }}
-                                            </div>
-                                            {% if session['gray_htg_gf_mf_name'] %}
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <img src="static\photos\{{ session['gray_htg_gf_mf_name'] }}"
-                                                             class="img-fluid" data-toggle="modal"
-                                                             data-target=".bd-example-modal-lg1">
-                                                        <div class="modal fade bd-example-modal-lg1" tabindex="-1"
-                                                             role="dialog"
-                                                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog modal-lg">
-                                                                <div class="modal-content">
-                                                                    <img src="static\photos\{{ session['gray_htg_gf_mf_name'] }}"
-                                                                         class="img-fluid">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            {% else %}
-                                                <div class="row pt-2">
-                                                    <div class="col-md">
-                                                        <img src="static\default\no-image.jpg"
-                                                             class="img-fluid">
-                                                    </div>
-                                                </div>
-                                            {% endif %}
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="col-12 ">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="border border-danger rounded-top">
-                                            <div class="bg-danger p-2 text-white font-weight-bold text-center">
-                                                ສະແດງເສັ້ນ Histogram
+                            <div class="col-4">
+                                <div class="border">
+                                    <div class="bg-info p-2 text-white font-weight-bold text-center">Form</div>
+                                    <div class="p-2">
+                                        <div class="input-group ">
+                                            <div class="input-group-append ">
+                                                <a href="/clean"
+                                                   class="bg-danger btn text-white btn-sm float-right pt-2"><i
+                                                        class="far fa-trash-alt"></i> Clean</a>
                                             </div>
-                                            {% if session['htg_org'] %}
-                                                <div class="row">
-                                                    <div class="col">
-
-                                                        <img src="static\photos\{{ session['htg_org'] }}"
-                                                             class="img-fluid" data-toggle="modal"
-                                                             data-target=".bd-example-modal-lg2">
-                                                        <div class="modal fade bd-example-modal-lg2" tabindex="-1"
-                                                             role="dialog"
-                                                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog modal-lg">
-                                                                <div class="modal-content">
-                                                                    <img src="static\photos\{{ session['htg_org'] }}"
-                                                                         class="img-fluid">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            {% else %}
-                                                <div class="row pt-2">
-                                                    <div class="col">
-                                                        <img src="static\default\no-image.jpg"
-                                                             class="img-fluid">
-                                                    </div>
-                                                </div>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                    <div class="col-6 mt-1">
-                                        <div class="border border-secondary rounded-top">
-                                            <div class="{% if session['rg_value']==1 %} bg-success {% else %}bg-secondary {% endif %}  p-2 text-white font-weight-bold text-center">
-                                                ສະແດງເສັ້ນ {{ session['label_name'] }} Histogram
+                                            <div class="custom-file ">
+                                                {{ form.photo(class_="custom-file-input ", id="inputGroupFile03", onChange="javascript:document.forms['form_id'].submit()") }}
+                                                <label class="custom-file-label" for="customFile">Choose file</label>
                                             </div>
-                                            {% if session['htg_gray_htg_gf_mf'] %}
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <img src="static\photos\{{ session['htg_gray_htg_gf_mf'] }}"
-                                                             class="img-fluid" data-toggle="modal"
-                                                             data-target=".bd-example-modal-lg3">
-                                                        <div class="modal fade bd-example-modal-lg3" tabindex="-1"
-                                                             role="dialog"
-                                                             aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog modal-lg">
-                                                                <div class="modal-content">
-                                                                    <img src="static\photos\{{ session['htg_gray_htg_gf_mf'] }}"
-                                                                         class="img-fluid">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            {% else %}
-                                                <div class="row pt-2">
-                                                    <div class="col-md">
-                                                        <img src="static\default\no-image.jpg"
-                                                             class="img-fluid">
-                                                    </div>
-                                                </div>
-                                            {% endif %}
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="border">
-                            <div class="bg-info p-2 text-white font-weight-bold text-center">Form</div>
-                            <div class="p-2">
-                                <div class="input-group ">
-                                    <div class="input-group-append ">
-                                        <a href="/clean" class="bg-danger btn text-white btn-sm float-right pt-2"><i
-                                                class="far fa-trash-alt"></i> Clean</a>
-                                    </div>
-                                    <div class="custom-file ">
-                                        {{ form.photo(class_="custom-file-input ", id="inputGroupFile03", onChange="javascript:document.forms['form_id'].submit()") }}
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                    </div>
-                                </div>
-                                {% if form.errors %}
-                                    <span class='errors text-danger'>
+                                        {% if form.errors %}
+                                            <span class='errors text-danger'>
                                             {% for error in form.photo.errors %}
                                                 {{ error }}
                                             {% endfor %}
                                         </span>
-                                {% endif %}
-                                <div class="mt-3">
-                                    <div class="bg-warning rounded-top p-1 text-center text-white">Options</div>
-                                    <div class="row">
-                                        <div class="col-12 mt-0">
-                                            <div class="col-12 border ">
-                                                <div class="row pl-2 bg pt-0 pb-2">
-                                                    <div class="custom-control custom-radio col-6">
-                                                        <input type="radio" class="custom-control-input"
-                                                               id="radio"
-                                                               value="1"
-                                                               name="rg"
-                                                               onclick="if (this.value) window.location.href='/equalization?rg='+this.value"
-                                                                {% if session['{{{{rg_value}}}}']==1 %} checked {% endif %}
-                                                        >
-                                                        <label class="custom-control-label" for="radio">
-                                                            ຮູບພາບສີ
-                                                        </label>
-                                                    </div>
-                                                    <div class="custom-control custom-radio col-6">
-                                                        <input type="radio" class="custom-control-input"
-                                                               id="radio1"
-                                                               value="0"
-                                                               name="rg"
-                                                               onclick="if (this.value) window.location.href='/equalization?rg='+this.value"
-                                                                {% if session['rg_value']==0 %} checked {% endif %}
-                                                        >
-                                                        <label class="custom-control-label" for="radio1">
-                                                            ຮູບພາບສີເທົາ
-                                                        </label>
-                                                    </div>
+                                        {% endif %}
+                                        <div class="mt-3">
+                                            <div class="bg-warning rounded-top p-1 text-center text-white">Options</div>
+                                            <div class="row">
+                                                <div class="col-12 mt-0">
+                                                    <div class="col-12 border ">
+                                                        <div class="row pl-2 bg pt-0 pb-2">
+                                                            <div class="custom-control custom-radio col-6">
+                                                                <input type="radio" class="custom-control-input"
+                                                                       id="radio"
+                                                                       value="1"
+                                                                       name="rg"
+                                                                       onclick="if (this.value) window.location.href='/equalization?rg='+this.value"
+                                                                        {% if session['{{{{rg_value}}}}']==1 %}
+                                                                       checked {% endif %}
+                                                                >
+                                                                <label class="custom-control-label" for="radio">
+                                                                    ຮູບພາບສີ
+                                                                </label>
+                                                            </div>
+                                                            <div class="custom-control custom-radio col-6">
+                                                                <input type="radio" class="custom-control-input"
+                                                                       id="radio1"
+                                                                       value="0"
+                                                                       name="rg"
+                                                                       onclick="if (this.value) window.location.href='/equalization?rg='+this.value"
+                                                                        {% if session['rg_value']==0 %}
+                                                                       checked {% endif %}
+                                                                >
+                                                                <label class="custom-control-label" for="radio1">
+                                                                    ຮູບພາບສີເທົາ
+                                                                </label>
+                                                            </div>
 
-                                                    <div class="col-12 mt-1">
-                                                        <a href="/equalization?he=true"
-                                                           class="btn-outline-primary btn btn-sm col "><i
-                                                                class="fas fa-arrow-circle-right"></i> Histograms
-                                                            Equalization</a>
-                                                    </div>
-                                                    <div class="border m-3 pt-2 pb-2 rounded row"
-                                                         style="background-color:#F4FCFB">
-                                                        <div class="col-12 mt-1">
-                                                            <label class="label font-italic media text-success">Threshold
-                                                                Type</label>
-                                                            <select class="form-control form-control-sm btn-outline-success custom-select-sm bg-white text-secondary"
-                                                                    id="exampleFormControlSelect1"
-                                                                    onchange="if (this.value) window.location.href='/equalization?thd_type='+this.value">
-                                                                <option></option>
-                                                                <option value="THRESH_BINARY"
-                                                                        {% if session['thd_type']=="THRESH_BINARY" %}
-                                                                        selected
-                                                                        {% endif %}
-                                                                >BINARY
-                                                                </option>
-                                                                <option value="THRESH_BINARY_INV"
-                                                                        {% if session['thd_type']=="THRESH_BINARY_INV" %}
-                                                                        selected
-                                                                        {% endif %}
-                                                                >BINARY INV
-                                                                </option>
-                                                                <option value="THRESH_TRUNC"
-                                                                        {% if session['thd_type']=="THRESH_TRUNC" %}
-                                                                        selected
-                                                                        {% endif %}
-                                                                >TRUNC
-                                                                </option>
-                                                                <option value="THRESH_TOZERO"
-                                                                        {% if session['thd_type']=="THRESH_TOZERO" %}
-                                                                        selected
-                                                                        {% endif %}
-                                                                >TOZERO
-                                                                </option>
-                                                                <option value="THRESH_TOZERO_INV"
-                                                                        {% if session['thd_type']=="THRESH_TOZERO_INV" %}
-                                                                        selected
-                                                                        {% endif %}
-                                                                >TOZERO INV
-                                                                </option>
+                                                            <div class="col-12 mt-1">
+                                                                <a href="/equalization?he=true"
+                                                                   class="btn-outline-primary btn btn-sm col "><i
+                                                                        class="fas fa-arrow-circle-right"></i>
+                                                                    Histograms
+                                                                    Equalization</a>
+                                                            </div>
+                                                            <div class="border m-3 pt-2 pb-2 rounded row"
+                                                                 style="background-color:#F4FCFB">
+                                                                <div class="col-12 mt-1">
+                                                                    <label class="label font-italic media text-success">Threshold
+                                                                        Type</label>
+                                                                    <select class="form-control form-control-sm btn-outline-success custom-select-sm bg-white text-secondary"
+                                                                            id="exampleFormControlSelect1"
+                                                                            onchange="if (this.value) window.location.href='/equalization?thd_type='+this.value">
+                                                                        <option></option>
+                                                                        <option value="THRESH_BINARY"
+                                                                                {% if session['thd_type']=="THRESH_BINARY" %}
+                                                                                selected
+                                                                                {% endif %}
+                                                                        >BINARY
+                                                                        </option>
+                                                                        <option value="THRESH_BINARY_INV"
+                                                                                {% if session['thd_type']=="THRESH_BINARY_INV" %}
+                                                                                selected
+                                                                                {% endif %}
+                                                                        >BINARY INV
+                                                                        </option>
+                                                                        <option value="THRESH_TRUNC"
+                                                                                {% if session['thd_type']=="THRESH_TRUNC" %}
+                                                                                selected
+                                                                                {% endif %}
+                                                                        >TRUNC
+                                                                        </option>
+                                                                        <option value="THRESH_TOZERO"
+                                                                                {% if session['thd_type']=="THRESH_TOZERO" %}
+                                                                                selected
+                                                                                {% endif %}
+                                                                        >TOZERO
+                                                                        </option>
+                                                                        <option value="THRESH_TOZERO_INV"
+                                                                                {% if session['thd_type']=="THRESH_TOZERO_INV" %}
+                                                                                selected
+                                                                                {% endif %}
+                                                                        >TOZERO INV
+                                                                        </option>
 
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-12 mt-1">
-                                                            <label class="label text-danger font-italic">Adaptive
-                                                                Type</label>
-                                                            <select class=" form-control form-control-sm btn-outline-danger custom-select-sm bg-white text-secondary"
-                                                                    id="exampleFormControlSelect1"
-                                                                    onchange="if (this.value) window.location.href='/equalization?adt_type='+this.value">
-                                                                <option></option>
-                                                                <option value="ADAPTIVE_THRESH_MEAN_C"
-                                                                        {% if session['adt_type']=="ADAPTIVE_THRESH_MEAN_C" %}
-                                                                        selected
-                                                                        {% endif %}
-                                                                >ADAPTIVE_THRESH_MEAN_C
-                                                                </option>
-                                                                <option value="ADAPTIVE_THRESH_GAUSSIAN_C"
-                                                                        {% if session['adt_type']=="ADAPTIVE_THRESH_GAUSSIAN_C" %}
-                                                                        selected
-                                                                        {% endif %}
-                                                                >ADAPTIVE_THRESH_GAUSSIAN_C
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="border ml-3 mr-3 pt-2 pb-2 rounded row"
-                                                         style="background-color:#F7FCFE">
-                                                        <div class="col-12 mt-2">
-                                                            <div class="form-group row">
-                                                                <div class="col-sm-12">
-                                                                    <label for="kzise"
-                                                                           class="label media text-info font-italic">K-size</label>
-                                                                    <input type="number"
-                                                                           class="form-control form-control-sm  btn-outline-info bg-white text-info"
-                                                                           id="kzise" placeholder="K-Size"
-                                                                           onchange="if (this.value) window.location.href='/equalization?kz='+this.value"
-                                                                           value="{%-if session['kz_value'] -%} {{ session['kz_value']|int }} {%- endif -%}"
-                                                                    >
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-12 mt-1">
+                                                                    <label class="label text-danger font-italic">Adaptive
+                                                                        Type</label>
+                                                                    <select class=" form-control form-control-sm btn-outline-danger custom-select-sm bg-white text-secondary"
+                                                                            id="exampleFormControlSelect1"
+                                                                            onchange="if (this.value) window.location.href='/equalization?adt_type='+this.value">
+                                                                        <option></option>
+                                                                        <option value="ADAPTIVE_THRESH_MEAN_C"
+                                                                                {% if session['adt_type']=="ADAPTIVE_THRESH_MEAN_C" %}
+                                                                                selected
+                                                                                {% endif %}
+                                                                        >ADAPTIVE_THRESH_MEAN_C
+                                                                        </option>
+                                                                        <option value="ADAPTIVE_THRESH_GAUSSIAN_C"
+                                                                                {% if session['adt_type']=="ADAPTIVE_THRESH_GAUSSIAN_C" %}
+                                                                                selected
+                                                                                {% endif %}
+                                                                        >ADAPTIVE_THRESH_GAUSSIAN_C
+                                                                        </option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-12 mt-0">
-                                                            <a href="/equalization?gf=true"
-                                                               class="btn-outline-danger btn btn-sm col "><i
-                                                                    class="fas fa-arrow-circle-right"></i> Guassian
-                                                                Filter</a>
-                                                        </div>
-                                                        <div class="col-12 mt-1">
-                                                            <a href="/equalization?mf=true"
-                                                               class="btn-outline-warning btn btn-sm col "><i
-                                                                    class="fas fa-arrow-circle-right"></i> Median Filter</a>
-                                                        </div>
-                                                        <div class="col-12 mt-1">
-                                                            <div class="row">
-                                                                <div class="col-md-12 mt-1">
-                                                                    <a href="/equalization?ngmf=true&gs=true"
-                                                                       class="btn-outline-success btn btn-sm col "><i
-                                                                            class="fas fa-arrow-circle-right"></i> Noise
-                                                                        Guassian</a>
+                                                            <div class="border ml-3 mr-3 pt-2 pb-2 rounded row"
+                                                                 style="background-color:#F7FCFE">
+                                                                <div class="col-12 mt-2">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-12">
+                                                                            <label for="kzise"
+                                                                                   class="label media text-info font-italic">K-size</label>
+                                                                            <input type="number"
+                                                                                   class="form-control form-control-sm  btn-outline-info bg-white text-info"
+                                                                                   id="kzise" placeholder="K-Size"
+                                                                                   onchange="if (this.value) window.location.href='/equalization?kz='+this.value"
+                                                                                   value="{%-if session['kz_value'] -%} {{ session['kz_value']|int }} {%- endif -%}"
+                                                                            >
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col-md-12 mt-1">
-                                                                    <a href="/equalization?ngmf=true&md=true"
-                                                                       class="btn-outline-primary btn btn-sm col "><i
-                                                                            class="fas fa-arrow-circle-right"></i> Noise
-                                                                        Mendian</a>
+                                                                <div class="col-12 mt-0">
+                                                                    <a href="/equalization?gf=true"
+                                                                       class="btn-outline-danger btn btn-sm col "><i
+                                                                            class="fas fa-arrow-circle-right"></i>
+                                                                        Guassian
+                                                                        Filter</a>
                                                                 </div>
+                                                                <div class="col-12 mt-1">
+                                                                    <a href="/equalization?mf=true"
+                                                                       class="btn-outline-warning btn btn-sm col "><i
+                                                                            class="fas fa-arrow-circle-right"></i>
+                                                                        Median Filter</a>
+                                                                </div>
+                                                                <div class="col-12 mt-1">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12 mt-1">
+                                                                            <a href="/equalization?ngmf=true&gs=true"
+                                                                               class="btn-outline-success btn btn-sm col "><i
+                                                                                    class="fas fa-arrow-circle-right"></i>
+                                                                                Noise
+                                                                                Guassian</a>
+                                                                        </div>
+                                                                        <div class="col-md-12 mt-1">
+                                                                            <a href="/equalization?ngmf=true&md=true"
+                                                                               class="btn-outline-primary btn btn-sm col "><i
+                                                                                    class="fas fa-arrow-circle-right"></i>
+                                                                                Noise
+                                                                                Mendian</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                 </div>
+
+
                                             </div>
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 {% endblock %}
