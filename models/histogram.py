@@ -1,17 +1,17 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import TextField, SubmitField
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 import numpy as np
-#from matplotlib import pyplot as plt
+# from matplotlib import pyplot as plt
 import matplotlib.pyplot as plt
-#plt.switch_backend('TKAgg')
+# plt.switch_backend('TKAgg')
 from random import randint
 from markupsafe import Markup
 import numpy as np
 from cv2 import cv2
 
 
-class Histogram(Form):
+class Histogram(FlaskForm):
     validators = [FileRequired(message='There was no file!'),
                   FileAllowed(['png', 'jpg'], message='ທ່ານ​ຕ້ອງ​ເລືອກ​ໄຟ​ຣ png, jpg ເທົ່າ​ນັ້ນ')]
     save = SubmitField('Save')

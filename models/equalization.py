@@ -1,4 +1,4 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from flask import Flask, session, request, redirect, url_for
 from wtforms import TextField, SubmitField
 from flask_wtf.file import FileField, FileRequired, FileAllowed
@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 import random
 
 
-class Equalization(Form):
+class Equalization(FlaskForm):
     validators = [FileRequired(message='There was no file!'),
                   FileAllowed(['png', 'jpg'], message='ທ່ານ​ຕ້ອງ​ເລືອກ​ໄຟ​ຣ png, jpg ເທົ່າ​ນັ້ນ')]
     save = SubmitField('Save')

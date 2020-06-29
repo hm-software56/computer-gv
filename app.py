@@ -9,12 +9,14 @@ import os
 from flask_bootstrap import Bootstrap
 from routes.camera_route import camera_route
 from routes.morphological_route import morphological_route
+from routes.edge_route import edge_route
 
 app = Flask(__name__)
 Bootstrap(app)
 app.secret_key = "daxiong"
 app.register_blueprint(camera_route)
 app.register_blueprint(morphological_route)
+app.register_blueprint(edge_route)
 
 
 @app.route('/clean')
