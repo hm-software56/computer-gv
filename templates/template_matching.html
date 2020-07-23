@@ -4,21 +4,25 @@
         <div id="intro" class="h-100">
             <div class="container">
                 {% include 'navbar.html' %}
+                {% if session['template_img'] %}
+                    {% include 'crop-img.html' %}
+                {% endif %}
                 <div class="col-12 border" id="bg">
                     <div class="row border-bottom pb-2">
                         <div class="col-md-4">
-                            <form method="POST" action="/edge" enctype="multipart/form-data"
+                            <form method="POST" action="/template-matching" enctype="multipart/form-data"
                                   id="form_id" class="pt-2">
                                 <div class="input-group">
                                     <div class="input-group-append ">
-                                        <a href="/cleanedge"
+                                        <a href="/cleantemplate"
                                            class="bg-danger btn text-white btn-sm float-right pt-2"><i
                                                 class="far fa-trash-alt"></i> Clean</a>
                                     </div>
                                     <div class="custom-file">
                                         {{ form.photo(class_="custom-file-input", id="inputGroupFile03", onChange="javascript:document.forms['form_id'].submit()") }}
-                                        <label class="custom-file-label" for="customFile">ເລືອກໄຟຣ</label>
+                                        <label class="custom-file-label" for="customFile">ເລືອກໄຟຣ Template</label>
                                     </div>
+
                                 </div>
                                 {% if form.errors %}
                                     <span class='errors text-danger'>
@@ -30,53 +34,47 @@
                                 {{ form.csrf_token }}
                             </form>
                         </div>
-                        <div class="col-md-8">
-                            <form method="GET" action="/edge-detection" enctype="multipart/form-data">
-                                <div class="row">
-                                    <div class="col-md-6 pt-2">
-
-                                        <div class=" btn-group dropdown" role="group"
-                                             aria-label="Button group with nested dropdown">
-                                            <div class="btn-group dropdown" role="group">
-                                                <button id="btnGroupDrop1" type="button"
-                                                        class="bg-white text-dark btn-outline-success btn  mr-1 dropdown-toggle"
-                                                        data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fa fa-eye"></i> Edge Detection ຮູບພາບ
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                    <button class="bg-white text-dark btn-outline-success btn  dropdown-item"
-                                                            name="action" value="canny">
-                                                        <i class="fa fa-code-branch"></i> Canny
-                                                    </button>
-                                                    <div class="dropdown-divider"></div>
-                                                    <button class="bg-white text-dark btn-outline-success btn  dropdown-item"
-                                                            name="action" value="sobel">
-                                                        <i class="fa fa-code-branch"></i> Sobel
-                                                    </button>
-                                                    <div class="dropdown-divider"></div>
-                                                    <button class="bg-white text-dark btn-outline-success btn  dropdown-item"
-                                                            name="action" value="laplacian">
-                                                        <i class="fa fa-code-branch"></i> Laplacian
-                                                    </button>
-                                                    <div class="dropdown-divider"></div>
-                                                    <button class="bg-white text-dark btn-outline-success btn  dropdown-item"
-                                                            name="action" value="countour">
-                                                        <i class="fa fa-code-branch"></i> Countour
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
+                        <div class="col-md-4">
+                            <form method="POST" action="/matching" enctype="multipart/form-data"
+                                  id="form_matching_id" class="pt-2">
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        {{ form.photo(class_="custom-file-input", id="inputGroupFile03", onChange="javascript:document.forms['form_matching_id'].submit()") }}
+                                        <label class="custom-file-label" for="customFile">ເລືອກໄຟຣ Matching</label>
                                     </div>
+
                                 </div>
+                                {% if form.errors %}
+                                    <span class='errors text-danger'>
+                                            {% for error in form.photo.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </span>
+                                {% endif %}
+                                {{ form.csrf_token }}
                             </form>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 pt-2">
+                        <div class="col-4 pt-2 text-center ">
+                            <div class="p-2 bg-info text-center text-white">Dataset (Template)</div>
+                            {% if session['dataset_img'] %}
+                                {% for name in session['dataset_img'] %}
+                                <img src="static\dataset\{{ name }}" width="40" height="40">
+                                {% endfor %}
+                                {% else %}
+                                <div class="row pt-2">
+                                    <div class="col">
+                                        <img src="static\default\no-image.jpg"
+                                             class="rounded mx-auto d-block img-thumbnail img-fluid">
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-4 pt-2">
                             <div class="p-2 bg-info text-center text-white">ຮູບພາບ Original</div>
-                            {% if session['img_name_org_edge'] %}
-                                <img src="static\photos\{{ session['img_name_org_edge'] }}"
+                            {% if session['matching_img'] %}
+                                <img src="static\photos\{{ session['matching_img'] }}"
                                      class="rounded mx-auto d-block img-thumbnail img-fluid">
                             {% else %}
                                 <div class="row pt-2">
@@ -87,15 +85,12 @@
                                 </div>
                             {% endif %}
                         </div>
-                        <div class="col-6 pt-2">
+                        <div class="col-4 pt-2">
                             <div class="p-2 bg-danger text-center text-white">
-                                ຮູບພາບ
-                                {% if session['covert_title_edge'] %}
-                                    {{ session['covert_title_edge'] }}
-                                {% endif %}
+                                ຮູບພາບ Matching
                             </div>
-                            {% if session['img_name_covert_edge'] %}
-                                <img src="static\photos\{{ session['img_name_covert_edge'] }}"
+                            {% if session['matched_img'] %}
+                                <img src="static\photos\{{ session['matched_img'] }}"
                                      class="rounded mx-auto d-block img-thumbnail img-fluid">
                             {% else %}
                                 <div class="row pt-2">

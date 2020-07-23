@@ -1,0 +1,51 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">ຕັດຮູບພາບ Template</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="/cropper-img" enctype="multipart/form-data" class="pt-2">
+                <div class="modal-body">
+                    <img src="static\photos\{{ session['template_img'] }}"
+                         class="rounded mx-auto d-block img-thumbnail img-fluid" id="cropper">
+                    <input id="x" name="x" hidden>
+                    <input id="y" name="y" hidden>
+                    <input id="w" name="w" hidden>
+                    <input id="h" name="h" hidden>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">ຕັດ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#myModal').modal('show');
+    });
+    var croppr = new Croppr('#cropper', {
+        onInitialize: (instance) => {
+            console.log(instance);
+        },
+        onCropStart: (data) => {
+            console.log('start', data);
+        },
+        onCropEnd: (data) => {
+            console.log('end', data);
+            //data.x, data.y, data.width, data.height
+            document.getElementById("x").value = data.x;
+            document.getElementById("y").value = data.y;
+            document.getElementById("w").value = data.width;
+            document.getElementById("h").value = data.height;
+
+        },
+        onCropMove: (data) => {
+            console.log('move', data);
+        }
+    });
+</script>
