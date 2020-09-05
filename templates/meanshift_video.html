@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div id="particles">
+        <div id="intro" class="h-100">
+            <div class="container">
+                {% include 'navbar.html' %}
+                <div class="col-12 border" id="bg">
+                    <div class="row">
+                        <div class="col-12 pt-2">
+                            <div class="card">
+                                <img class="card-img-top img-fluid" src="{{ url_for('meanshift_route.meanshift_video') }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

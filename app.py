@@ -10,8 +10,9 @@ from flask_bootstrap import Bootstrap
 from routes.camera_route import camera_route
 from routes.morphological_route import morphological_route
 from routes.edge_route import edge_route
-from  routes.templatematching_route import templatematching_route
-
+from routes.templatematching_route import templatematching_route
+from routes.corners_route import corners_route
+from  routes.meanshift_route import meanshift_route
 app = Flask(__name__)
 Bootstrap(app)
 app.secret_key = "daxiong"
@@ -19,6 +20,8 @@ app.register_blueprint(camera_route)
 app.register_blueprint(morphological_route)
 app.register_blueprint(edge_route)
 app.register_blueprint(templatematching_route)
+app.register_blueprint(corners_route)
+app.register_blueprint(meanshift_route)
 
 
 @app.route('/clean')
@@ -133,4 +136,4 @@ def equalization():
 
 if __name__ == '__main__':
     app.run(debug=True, port=2020)
-    #app.run(debug=True, threaded=True, host='192.168.100.247', port=2020)
+    # app.run(debug=True, threaded=True, host='192.168.100.247', port=2020)
